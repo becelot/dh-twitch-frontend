@@ -11,9 +11,9 @@ module.exports = (env, argv) => {
 	
 	let config = {
 		entry: {
-			overlay: ["babel-polyfill", path.resolve(__dirname, "src", "overlay")],
-			config: ["babel-polyfill", path.resolve(__dirname, "src", "config")],
-			panel: ["babel-polyfill", path.resolve(__dirname, "src", "panel")]
+			overlay: [path.resolve(__dirname, "src", "overlay")],
+			config: [path.resolve(__dirname, "src", "config")],
+			panel: [path.resolve(__dirname, "src", "panel")]
 		},
 		resolve: {
 			extensions: [".ts", ".tsx", ".js"],
@@ -73,6 +73,11 @@ module.exports = (env, argv) => {
 		plugins: [
 			new webpack.DefinePlugin({
 				APPLICATION_VERSION: JSON.stringify(pkg.version),
+			}),
+			new HtmlWebpackPlugin({
+				filename: "index.html",
+				chunks: ["overlay"],
+				template: path.resolve(__dirname, "template.html"),
 			}),
 			new HtmlWebpackPlugin({
 				filename: "video_component.html",
