@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
 			panel: [path.resolve(__dirname, "src", "panel")]
 		},
 		resolve: {
-			extensions: [".ts", ".tsx", ".js"],
+			extensions: [".ts", ".tsx", ".js", ".scss"],
 		},
 		module: {
 			rules: [
@@ -29,6 +29,14 @@ module.exports = (env, argv) => {
 					test: /.js$/,
 					exclude: /node_modules/,
 					use: ["babel-loader"]
+				},
+				{
+					test: /\.scss$/,
+					use: [
+						{ loader: 'style-loader' },
+						'css-modules-typescript-loader',
+						{ loader: 'css-loader', options: { modules: true } },
+						{ loader: 'sass-loader' , options: { sourceMap: true} }]
 				},
 				{
 					test: /\.(jpe?g|png|gif|svg)$/,

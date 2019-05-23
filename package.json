@@ -33,9 +33,12 @@
 		"@types/webpack-env": "^1.13.5",
 		"babel-loader": "^8.0.6",
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"css-loader": "^2.1.1",
+		"css-modules-typescript-loader": "^2.0.2",
 		"file-loader": "^3.0.1",
 		"html-webpack-include-sibling-chunks-plugin": "^0.1.5",
 		"html-webpack-plugin": "^3.2.0",
+		"node-sass": "^4.12.0",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
 		"react-hot-loader": "^4.8.7",
@@ -43,6 +46,8 @@
 		"redux": "^4.0.1",
 		"redux-observable": "^1.1.0",
 		"rxjs": "^6.5.2",
+		"sass-loader": "^7.1.0",
+		"style-loader": "^0.23.1",
 		"ts-loader": "^4.1.0",
 		"typesafe-actions": "^4.4.0",
 		"typescript": "^3.4.5",
@@ -58,5 +63,5 @@
 		"tslint-react": "^3.6.0",
 		"webpack-dev-server": "^3.1.1"
 	},
-  "private": true
+	"private": true
 }
