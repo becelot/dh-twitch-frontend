@@ -1,0 +1,21 @@
+
+
+.wrapper {
+  font-family: "Helvetica Neue", helvetica, sans-serif;
+  width: 100%;
+  min-width: 500px;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  font-size: 1.5em;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+
+  p {
+    padding: 0.5em;
+    width: 100%;
+  }
+}
