@@ -178,3 +178,5 @@ modules.xml
 # End of https://www.gitignore.io/api/node,webstorm+all
 
 dist/
+
+*.scss.d.ts
