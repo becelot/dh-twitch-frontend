@@ -1,4 +1,4 @@
-import * as configActions from '../config/actions';
+import configActions from '../config/actions';
 
 export default {
   config: configActions,
