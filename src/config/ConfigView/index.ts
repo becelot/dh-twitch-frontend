@@ -1,19 +1,23 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { setConnectionState } from '../actions';
-import ConfigViewComponent from './ConfigViewComponent';
 
 import Types from 'Types';
-
+import configActions from '../actions';
+import { ConnectionStatus } from '../enums';
+import ConfigViewComponent from './ConfigViewComponent';
 
 const mapStateToProps = (state: Types.RootState) => ({
   hasInitialized: state.config.hasInitialized,
   connection: state.config.connection,
+  working: state.config.completingSetup || state.config.connection === ConnectionStatus.UNKNOWN,
 });
 
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    setConnectionState,
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({
+    setTwitchExtContext: configActions.setTwitchExtContext,
+    setTwitchExtAuthorized: configActions.setTwitchExtAuthorized,
+    requestConnectionState: configActions.refreshConnectionStatus,
   },
   dispatch
 );
