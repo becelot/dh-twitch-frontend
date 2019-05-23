@@ -7,13 +7,10 @@ import { ConnectionStatus } from './enums';
 const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () => Types.RootState): Promise<void> => {
   const state: Types.RootState = getState();
   if (!state.config.twitch.authorized) {
-    dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
     return;
   }
 
   try {
-
-    window.Twitch.ext.rig.log('Before ');
     const response = await fetch(
       `http://localhost:5000/api/user/configured/${state.config.twitch.authorized.channelId}`
       , {
@@ -24,15 +21,21 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
         mode: 'cors',
     });
 
-    window.Twitch.ext.rig.log(response.status.toString());
     if (response.status !== 200) {
       dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
       return;
     }
 
-    dispatch(configActions.setConnectionState(ConnectionStatus.READY));
+    response.json().then((status: {status: number; message: string}) => {
+      if (status.status === 200) {
+        dispatch(configActions.setConnectionState(ConnectionStatus.READY));
+      } else if (status.status === 402) {
+        dispatch(configActions.setConnectionState(ConnectionStatus.ACCOUNT_NOT_LINKED));
+      } else {
+        dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
+      }
+    });
   } catch (e) {
-    window.Twitch.ext.rig.log(e.toLocaleString());
     dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
   }
 };
