@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Props } from './index';
+import { ConnectionStatus } from '../enums';
 
 import * as styles from './ConfigView.scss';
+import { Props } from './index';
 
 export default class ConfigViewComponent extends React.Component<Props> {
   public componentDidMount(): void {
@@ -11,11 +12,8 @@ export default class ConfigViewComponent extends React.Component<Props> {
 
     window.Twitch.ext.onAuthorized((auth: TwitchExtAuthorized) => {
       this.props.setTwitchExtAuthorized(auth);
-      window.Twitch.ext.rig.log(this.props.hasInitialized ? 'true' : 'false');
       if (!this.props.hasInitialized) {
-        window.Twitch.ext.rig.log('Requesting connection state async');
         this.props.requestConnectionState();
-        window.Twitch.ext.rig.log('Requesting connection state async');
       }
     });
   }
@@ -43,7 +41,11 @@ export default class ConfigViewComponent extends React.Component<Props> {
 
     return (
       <div className={styles.wrapper}>
-        <p>Something was returned</p>
+        {this.props.connection === ConnectionStatus.READY ? (
+          <p>Account was linked</p>
+        ) : (
+          <p>Account is currently not linked</p>
+        )}
       </div>
     );
   }

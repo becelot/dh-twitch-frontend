@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer, getType } from 'typesafe-actions';
-import configActions from './actions';
+import { configActions } from './actions';
 import { ConfigState, initialState } from './state';
 
 const connection = createReducer(initialState.connection)

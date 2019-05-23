@@ -16,6 +16,7 @@ export const epicMiddleware = createEpicMiddleware<
 
 // configure middlewares
 const middlewares = [epicMiddleware, thunk];
+
 // compose enhancers
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 

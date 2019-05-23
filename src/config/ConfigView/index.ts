@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import Types from 'Types';
-import configActions from '../actions';
+import { configActions, configThunks } from '../actions';
 import { ConnectionStatus } from '../enums';
 import ConfigViewComponent from './ConfigViewComponent';
 
@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({
     setTwitchExtContext: configActions.setTwitchExtContext,
     setTwitchExtAuthorized: configActions.setTwitchExtAuthorized,
-    requestConnectionState: configActions.refreshConnectionStatus,
+    requestConnectionState: configThunks.refreshConnectionStatus,
   },
   dispatch
 );
