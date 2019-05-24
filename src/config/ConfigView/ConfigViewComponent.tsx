@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
-import { ConnectionStatus } from '../enums';
+import { ConnectionStatus } from '../../model/config/enums';
 
 import * as styles from './ConfigView.scss';
 import { Props } from './index';
 
 export default class ConfigViewComponent extends React.Component<Props> {
   public componentDidMount(): void {
+    /*
     window.Twitch.ext.onContext((context: Partial<TwitchExtContext>) => {
       this.props.setTwitchExtContext(context);
     });
@@ -16,7 +17,7 @@ export default class ConfigViewComponent extends React.Component<Props> {
       if (!this.props.hasInitialized) {
         this.props.requestConnectionState();
       }
-    });
+    });*/
   }
 
   public render() {

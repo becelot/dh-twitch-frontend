@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import Types from 'Types';
-import { configActions, configThunks } from '../actions';
-import { ConnectionStatus } from '../enums';
+import { configActions, configThunks } from '../../model/config/actions';
+import { ConnectionStatus } from '../../model/config/enums';
 import ConfigViewComponent from './ConfigViewComponent';
 
 const mapStateToProps = (state: Types.RootState) => ({
