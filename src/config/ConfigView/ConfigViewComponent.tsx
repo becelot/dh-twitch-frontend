@@ -4,6 +4,8 @@ import { ConnectionStatus } from '../../model/config/enums';
 
 import * as styles from './ConfigView.scss';
 import { Props } from './index';
+import { CardTile } from '../../components/Card/CardTile';
+import { DeckComponent } from '../../components/Deck/Deck';
 
 export default class ConfigViewComponent extends React.Component<Props> {
   public componentDidMount(): void {
@@ -24,6 +26,7 @@ export default class ConfigViewComponent extends React.Component<Props> {
     const createLayout = (children: ReactElement) => {
       return (
         <div className={styles.wrapper}>
+          <DeckComponent deckList={[{id: '', name: 'Test', count: 3}, {id: '', name: 'Test2', count: 1}]} deckName={'Tst'} />
           <p>Hearthstone Deck History extension configuration</p>
           {children}
         </div>

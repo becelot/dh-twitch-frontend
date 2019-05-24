@@ -1,0 +1,39 @@
+
+$height: 30px;
+
+.wrapper {
+  width: 300px;
+  height: $height;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  background-color: darkseagreen;
+
+  .countBadge {
+    width: $height;
+    height: $height;
+    background: darkcyan;
+
+    flex: 0 0 $height;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .number {
+      font-size: 18px;
+      text-align: center;
+      color: white;
+
+      width: border-box;
+      height: fit-content;
+    }
+  }
+
+  .cardName {
+    flex: 1 1 auto;
+    margin-left: 15px;
+
+    text-align: left;
+  }
+}
