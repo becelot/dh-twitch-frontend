@@ -1,17 +1,15 @@
 import { ConnectionStatus } from './enums';
+import { ITwitchState } from './twitch/state';
 
 
 export type ConfigState = Readonly<{
   hasInitialized: boolean;
   completingSetup: boolean;
   connection: ConnectionStatus;
-  twitch: Readonly<{
-    context: Partial<TwitchExtContext> | null;
-    authorized: TwitchExtAuthorized | null;
-  }>;
+  twitch: ITwitchState;
 }>;
 
-export const initialState: ConfigState = {
+export const configInitialState: ConfigState = {
   hasInitialized: false,
   completingSetup: false,
   connection: ConnectionStatus.UNKNOWN,
