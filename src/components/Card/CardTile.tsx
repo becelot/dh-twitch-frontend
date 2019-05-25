@@ -8,13 +8,36 @@ export interface ICardTile {
   name: string;
 }
 
+export class StyledHexagon extends React.Component {
+  public render() {
+    return (
+      <div className={styles.hexagon}>
+        <div className={styles.costText}>
+          {this.props.children}
+        </div>
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+
+      </div>
+    );
+  }
+}
+
 export class CardTile extends React.Component<ICardTile> {
   public render() {
     return (
       <div className={styles.wrapper}>
-        <div className={styles.costBadge}>
-          {this.props.count}
-        </div>
+        <StyledHexagon >{this.props.count}</StyledHexagon>
         <div className={styles.cardName}>
           {this.props.name}
         </div>
