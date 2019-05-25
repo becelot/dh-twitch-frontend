@@ -26,7 +26,7 @@ export default class ConfigViewComponent extends React.Component<Props> {
     const createLayout = (children: ReactElement) => {
       return (
         <div className={styles.wrapper}>
-          <DeckComponent deckList={[{id: '', name: 'Test', count: 3}, {id: '', name: 'Test2', count: 1}]} deckName={'Tst'} />
+          <DeckComponent deckList={[{id: '', name: 'Curious Glimmerroot', count: 1}]} deckName={'Tst'} />
           <p>Hearthstone Deck History extension configuration</p>
           {children}
         </div>
