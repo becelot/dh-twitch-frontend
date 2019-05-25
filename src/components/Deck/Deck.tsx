@@ -12,14 +12,16 @@ export class DeckComponent extends React.Component<Props> {
   renderDeckList(deckList: ICardTile[]) {
     const childrean: ReactElement[] = [];
 
-    deckList.forEach(card => childrean.push(<CardTile count={card.count} id={card.id} name={card.name} />));
+    deckList.forEach(card => childrean.push(<li><CardTile count={card.count} id={card.id} name={card.name} /></li>));
 
     return childrean;
   }
 
   public render() {
     return (
-      this.renderDeckList(this.props.deckList)
+      <div style={{position: 'relative'}}>
+        {this.renderDeckList(this.props.deckList)}
+      </div>
     );
   }
 }
