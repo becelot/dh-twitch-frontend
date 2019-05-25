@@ -2,13 +2,43 @@
 $height: 30px;
 
 .wrapper {
-  width: 300px;
+  width: 240px;
   height: $height;
   display: flex;
   justify-content: center;
   flex-direction: row;
 
-  background-color: darkseagreen;
+  .costBadge {
+    width: $height;
+    height: $height;
+    background: darkcyan;
+
+    flex: 0 0 $height;
+
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    line-height: $height;
+
+  }
+
+  .cardName {
+    flex: 1 1 auto;
+    padding-left: 15px;
+
+    text-align: left;
+    line-height: $height;
+
+    font-size: 18px;
+    color: white;
+
+    background: linear-gradient(
+                    65deg,
+                    #313109,
+                    #313131 calc(100% - 96px),
+                    rgba(49, 49, 49, 0) calc(100% - 26px),
+                    rgba(49, 49, 49, 0)), url("https://art.hearthstonejson.com/v1/tiles/CS2_106.png");
+  }
 
   .countBadge {
     width: $height;
@@ -17,23 +47,10 @@ $height: 30px;
 
     flex: 0 0 $height;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .number {
-      font-size: 18px;
-      text-align: center;
-      color: white;
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    line-height: $height;
 
-      width: border-box;
-      height: fit-content;
-    }
-  }
-
-  .cardName {
-    flex: 1 1 auto;
-    margin-left: 15px;
-
-    text-align: left;
   }
 }

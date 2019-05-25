@@ -12,13 +12,14 @@ export class CardTile extends React.Component<ICardTile> {
   public render() {
     return (
       <div className={styles.wrapper}>
-        <div className={styles.countBadge}>
-          <div className={styles.number}>
-            {this.props.count}
-          </div>
+        <div className={styles.costBadge}>
+          {this.props.count}
         </div>
         <div className={styles.cardName}>
           {this.props.name}
+        </div>
+        <div className={styles.countBadge}>
+          {this.props.count}
         </div>
       </div>
     );
