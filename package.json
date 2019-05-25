@@ -11,7 +11,8 @@
 	},
 	"scripts": {
 		"build": "webpack --mode production",
-		"dev": "webpack-dev-server --mode development --devrig",
+		"rig": "webpack-dev-server --mode development --devrig",
+		"dev": "webpack-dev-server --mode development",
 		"format": "yarn format:tslint; yarn format:prettier",
 		"format:prettier": "prettier --write \"{src/**/*.ts{,x},*.js}\"",
 		"format:tslint": "tslint --project . --fix",
