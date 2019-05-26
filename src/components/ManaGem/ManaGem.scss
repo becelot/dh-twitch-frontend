@@ -1,0 +1,112 @@
+
+
+@import "../../scss/variables";
+@import "../../scss/functions";
+
+@mixin hexagon-site($height, $color, $n) {
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-top: ($height / 2) solid $color;
+  border-right: ($height / (2 * sqrt(3)) +0.1) solid transparent;
+  border-left: ($height / (2 * sqrt(3)) + 0.1) solid transparent;
+
+  left: ($height / (2 * sqrt(3)));
+
+
+  -webkit-transform: rotate(#{$n*60}deg);
+  -moz-transform: rotate(#{$n*60}deg);
+  -ms-transform: rotate(#{$n*60}deg);
+  -o-transform: rotate(#{$n*60}deg);
+  transform: rotate(#{$n*60}deg);
+
+  transform-origin: bottom center;
+}
+
+@mixin hexagon-shadow($height, $color, $n) {
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-top: ($height / 2) solid black;
+  border-right: ($height / (2 * sqrt(3)) +0.1) solid transparent;
+  border-left: ($height / (2 * sqrt(3)) + 0.1) solid transparent;
+
+  left: ($height / (2 * sqrt(3)));
+
+
+  -webkit-transform: rotate(#{$n*60}deg);
+  -moz-transform: rotate(#{$n*60}deg);
+  -ms-transform: rotate(#{$n*60}deg);
+  -o-transform: rotate(#{$n*60}deg);
+  transform: rotate(#{$n*60}deg);
+
+  transform-origin: bottom center;
+
+  box-shadow: 0 -1px 1px black;
+}
+
+.hexagon {
+  width: ( 2 * $height / sqrt(3));
+  height: $height;
+  position: relative;
+  line-height: $height;
+
+  div {
+
+    &.costText {
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 1em;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+      color: white;
+      line-height: $height;
+      position: absolute;
+      width: ( 2 * $height / sqrt(3));
+      height: 32px;
+      z-index: 2;
+      text-align: center;
+    }
+
+    &:nth-child(2) {
+      @include hexagon-shadow($height, #1D88C5, 0);
+    }
+    &:nth-child(3) {
+      @include hexagon-shadow($height, #006BD6, 1);
+    }
+    &:nth-child(4) {
+      @include hexagon-shadow($height, #155CA2, 2);
+    }
+    &:nth-child(5) {
+      @include hexagon-shadow($height, #112860, 3);
+    }
+    &:nth-child(6) {
+      @include hexagon-shadow($height, #143364, 4);
+    }
+    &:nth-child(7) {
+      @include hexagon-shadow($height, #053A6E, 5);
+    }
+
+
+    &:nth-child(8) {
+      @include hexagon-site($height, #1D88C5, 0);
+    }
+    &:nth-child(9) {
+      @include hexagon-site($height, #006BD6, 1);
+    }
+    &:nth-child(10) {
+      @include hexagon-site($height, #155CA2, 2);
+    }
+    &:nth-child(11) {
+      @include hexagon-site($height, #112860, 3);
+    }
+    &:nth-child(12) {
+      @include hexagon-site($height, #143364, 4);
+    }
+    &:nth-child(13) {
+      @include hexagon-site($height, #053A6E, 5);
+    }
+
+  }
+}
