@@ -5,7 +5,7 @@ import { ConnectionStatus } from '../../model/config/enums';
 import * as styles from './ConfigView.scss';
 import { Props } from './index';
 import { CardTile } from '../../components/Card/CardTile';
-import { DeckComponent } from '../../components/Deck/Deck';
+import { DeckList } from '../../components/Deck/DeckList';
 
 export default class ConfigViewComponent extends React.Component<Props> {
   public componentDidMount(): void {
@@ -26,7 +26,7 @@ export default class ConfigViewComponent extends React.Component<Props> {
     const createLayout = (children: ReactElement) => {
       return (
         <div className={styles.wrapper}>
-          <DeckComponent deckList={[{id: '1', name: 'Curious Glimmerroot', count: 1}, {id: '2', name: 'Curious Glimmerroot', count: 3}, {id: '3', name: 'Curious Glimmerroot', count: 2}, {id: '4', name: 'Curious Glimmerroot', count: 2}, {id: '5', name: 'Curious Glimmerroot', count: 2}, {id: '6', name: 'Curious Glimmerroot', count: 2}, {id: '7', name: 'Curious Glimmerroot', count: 2},{id: '8', name: 'Curious Glimmerroot', count: 2},{id: '9', name: 'Curious Glimmerroot', count: 2},{id: '10', name: 'Curious Glimmerroot', count: 2},{id: '11', name: 'Curious Glimmerroot', count: 2},{id: '12', name: 'Curious Glimmerroot', count: 2},{id: '13', name: 'Curious Glimmerroot', count: 2},{id: '14', name: 'Curious Glimmerroot', count: 2},{id: '15', name: 'Curious Glimmerroot', count: 2}]} deckName={'Tst'} />
+          <DeckList deckList={[{id: '1', name: 'Curious Glimmerroot', count: 1}, {id: '2', name: 'Curious Glimmerroot', count: 3}, {id: '3', name: 'Curious Glimmerroot', count: 2}, {id: '4', name: 'Curious Glimmerroot', count: 2}, {id: '5', name: 'Curious Glimmerroot', count: 2}, {id: '6', name: 'Curious Glimmerroot', count: 2}, {id: '7', name: 'Curious Glimmerroot', count: 2},{id: '8', name: 'Curious Glimmerroot', count: 2},{id: '9', name: 'Curious Glimmerroot', count: 2},{id: '10', name: 'Curious Glimmerroot', count: 2},{id: '11', name: 'Curious Glimmerroot', count: 2},{id: '12', name: 'Curious Glimmerroot', count: 2},{id: '13', name: 'Curious Glimmerroot', count: 2},{id: '14', name: 'Curious Glimmerroot', count: 2},{id: '15', name: 'Curious Glimmerroot', count: 2}]} deckName={'Tst'} />
           {/*<p>Hearthstone Deck History extension configuration</p>*/}
           {/*{children}*/}
         </div>
