@@ -7,6 +7,12 @@ export type ConfigState = Readonly<{
   completingSetup: boolean;
   connection: ConnectionStatus;
   twitch: ITwitchState;
+  appearance: Readonly<{
+    decklist: Readonly<{
+      width: number;
+      tileHeight: number;
+    }>;
+  }>;
 }>;
 
 export const configInitialState: ConfigState = {
@@ -14,4 +20,10 @@ export const configInitialState: ConfigState = {
   completingSetup: false,
   connection: ConnectionStatus.UNKNOWN,
   twitch: { context: null, authorized: null },
+  appearance: {
+    decklist: {
+      width: 260,
+      tileHeight: 32,
+    },
+  },
 };
