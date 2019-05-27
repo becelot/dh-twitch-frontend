@@ -5,10 +5,14 @@ import { SET_CONNECTION_STATE } from './constants';
 import { ConnectionStatus } from './enums';
 import twitchActions from './twitch/actions';
 
-const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () => Types.RootState): Promise<void> => {
+const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () => Types.RootState): Promise<ConnectionStatus> => {
+  const dispatchReturn = (status: ConnectionStatus): ConnectionStatus => {
+    dispatch(configActions.setConnectionState(status));
+    return status;
+  };
   const state: Types.RootState = getState();
   if (!state.config.twitch.authorized) {
-    return;
+    return dispatchReturn(ConnectionStatus.NOT_CONFIGURED);
   }
 
   try {
@@ -23,22 +27,23 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
     });
 
     if (response.status !== 200) {
-      dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
-      return;
+      return dispatchReturn(ConnectionStatus.ERROR);
     }
 
     response.json().then((status: {status: number; message: string}) => {
       if (status.status === 200) {
-        dispatch(configActions.setConnectionState(ConnectionStatus.READY));
+        return dispatchReturn(ConnectionStatus.READY);
       } else if (status.status === 402) {
-        dispatch(configActions.setConnectionState(ConnectionStatus.ACCOUNT_NOT_LINKED));
+        return dispatchReturn(ConnectionStatus.ACCOUNT_NOT_LINKED);
       } else {
-        dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
+        return dispatchReturn(ConnectionStatus.ERROR);
       }
     });
   } catch (e) {
-    dispatch(configActions.setConnectionState(ConnectionStatus.ERROR));
+    return dispatchReturn(ConnectionStatus.ERROR);
   }
+
+  return dispatchReturn(ConnectionStatus.ERROR);
 };
 
 
