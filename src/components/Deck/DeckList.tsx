@@ -1,23 +1,26 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { CardTile, ICardTile } from '../Card/CardTile';
+import CardTile from '../Card/';
+import { ICardTile } from '../Card/CardTile';
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 260px;
   position: relative;
 `;
 
 const DeckListWrapper = styled.ul`
   position: relative;
-  listStyleType: none;
+  list-style-type: none;
+  padding-inline-start: 0px;
   
   margin: 0;
   display: flex;
-  flexDirection: column;
+  flex-direction: column;
   
   li {
     height: 32px;
-    marginBottom: 3px;
+    margin-bottom: 3px;
+    position: relative;
   }
 `;
 
