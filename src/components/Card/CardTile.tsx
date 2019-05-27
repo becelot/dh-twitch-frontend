@@ -1,7 +1,94 @@
 import * as React from 'react';
 
 import * as styles from './CardTile.scss';
-import { ManaGem } from '../ManaGem/ManaGem';
+import ManaGem from '../ManaGem/';
+import { Props } from './index';
+import styled from 'styled-components';
+
+interface ICardTileInfo {
+  cardTileHeight: number;
+  cardTileWidth: number;
+}
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+`;
+
+const CardNameText = styled.div<ICardTileInfo>`
+    flex: 1 1 auto;
+    margin-left: -${props => props.cardTileHeight / (2 * Math.sqrt(3))}px;
+    padding-left: 15px;
+
+    text-align: left;
+    line-height: ${props => props.cardTileHeight}px;
+
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 0.7em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    color: white;
+
+    // background
+    background: linear-gradient(
+                    to right,
+                    #2F2D2E,
+                    #2F2D2E 20%,
+                    rgba(47, 45, 46, 0) 40%,
+                    rgba(47, 45, 46, 0)), url("https://art.hearthstonejson.com/v1/tiles/EX1_277.png");
+    background-repeat: no-repeat;
+    background-size: ${props => props.cardTileWidth - 32 - (props.cardTileHeight * Math.sqrt(3) / 2)}px 32px;
+
+    box-shadow: 0 -1px 1px black, 0 1px 1px black;
+`;
+
+const CountBadge = styled.div<ICardTileInfo>`
+  width: ${props => props.cardTileHeight};
+  height: ${props => props.cardTileHeight};
+  position: relative;
+  margin-left: -0.3px;
+  background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+
+  flex: 0 0 ${props => props.cardTileHeight}px;
+
+  text-align: center;
+  color: white;
+  line-height: ${props => props.cardTileHeight}px;
+  box-shadow: 0px -1px 1px black, 0 1px 1px black, 1px 0 1px black;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: ${props => props.cardTileHeight / 2}px;
+    height: ${props => props.cardTileHeight}px;
+    left: 0;
+
+    background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
+    transform: skewX(26deg);
+    transform-origin: bottom left;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: ${props => props.cardTileHeight};
+    left: 4px;
+
+    background: linear-gradient(#F5BC3B, #ECE43C, #F5BC3B);
+    transform: skewX(26deg);
+    transform-origin: bottom left;
+  }
+`;
 
 export interface ICardTile {
   count: number;
@@ -13,10 +100,10 @@ interface State {
   hovered: boolean;
 }
 
-export class CardTile extends React.Component<ICardTile, State> {
+export default class extends React.Component<Props & ICardTile, State> {
   public ref: HTMLDivElement | null = null;
 
-  public constructor(props: ICardTile) {
+  public constructor(props: Props & ICardTile) {
     super(props);
 
     this.state = {hovered: false};
@@ -71,7 +158,7 @@ export class CardTile extends React.Component<ICardTile, State> {
             position: 'absolute',
             height,
             top: posTop,
-            left: x + elementWidth / 2,
+            left: rect.width + elementWidth / 2,
             overflow: 'hidden',
           }}
         >
@@ -89,21 +176,20 @@ export class CardTile extends React.Component<ICardTile, State> {
     }
 
     return (
-      <div
-        className={styles.wrapper}
+      <Wrapper
         ref={ref => this.ref = ref}
         onMouseEnter={this.onMouseOver}
         onMouseLeave={this.onMouseOut}
       >
         <ManaGem>{this.props.count}</ManaGem>
-        <div className={styles.cardName}>
+        <CardNameText cardTileHeight={this.props.cardTileHeight} cardTileWidth={this.props.width}>
           {this.props.name}
-        </div>
-        <div className={styles.countBadge}>
+        </CardNameText>
+        <CountBadge cardTileHeight={this.props.cardTileHeight} cardTileWidth={this.props.width}>
           {this.props.count}
-        </div>
+        </CountBadge>
         {tooltip}
-      </div>
+      </Wrapper>
     );
   }
 }
