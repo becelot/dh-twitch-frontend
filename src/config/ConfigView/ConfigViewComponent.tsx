@@ -4,7 +4,6 @@ import { ConnectionStatus } from '../../model/config/enums';
 
 import * as styles from './ConfigView.scss';
 import { Props } from './index';
-import { DeckList } from '../../components/Deck/DeckList';
 
 export default class ConfigViewComponent extends React.Component<Props> {
   public componentDidMount(): void {
@@ -32,7 +31,7 @@ export default class ConfigViewComponent extends React.Component<Props> {
       );
     };
     if (!this.props.hasInitialized) {
-      if (this.props.working) {
+      if (this.props.connection === ConnectionStatus.UNKNOWN) {
         return (
           createLayout(
             <>
