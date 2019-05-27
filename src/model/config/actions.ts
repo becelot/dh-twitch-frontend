@@ -6,10 +6,12 @@ import { ConnectionStatus } from './enums';
 import twitchActions from './twitch/actions';
 
 const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () => Types.RootState): Promise<ConnectionStatus> => {
+
   const dispatchReturn = (status: ConnectionStatus): ConnectionStatus => {
     dispatch(configActions.setConnectionState(status));
     return status;
   };
+
   const state: Types.RootState = getState();
   if (!state.config.twitch.authorized) {
     return dispatchReturn(ConnectionStatus.NOT_CONFIGURED);
@@ -17,8 +19,8 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/configured/${state.config.twitch.authorized.channelId}`
-      , {
+      `http://localhost:5000/api/user/configured/${state.config.twitch.authorized.channelId}`,
+      {
         headers: {
           Accept: 'application/json',
         },
@@ -30,20 +32,17 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
       return dispatchReturn(ConnectionStatus.ERROR);
     }
 
-    response.json().then((status: {status: number; message: string}) => {
-      if (status.status === 200) {
-        return dispatchReturn(ConnectionStatus.READY);
-      } else if (status.status === 402) {
-        return dispatchReturn(ConnectionStatus.ACCOUNT_NOT_LINKED);
-      } else {
-        return dispatchReturn(ConnectionStatus.ERROR);
-      }
-    });
+    const status: {status: number; message: string} = await response.json();
+    if (status.status === 200) {
+      return dispatchReturn(ConnectionStatus.READY);
+    } else if (status.status === 402) {
+      return dispatchReturn(ConnectionStatus.ACCOUNT_NOT_LINKED);
+    } else {
+      return dispatchReturn(ConnectionStatus.ERROR);
+    }
   } catch (e) {
     return dispatchReturn(ConnectionStatus.ERROR);
   }
-
-  return dispatchReturn(ConnectionStatus.ERROR);
 };
 
 
