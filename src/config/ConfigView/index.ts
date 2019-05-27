@@ -7,9 +7,9 @@ import { ConnectionStatus } from '../../model/config/enums';
 import ConfigViewComponent from './ConfigViewComponent';
 
 const mapStateToProps = (state: Types.RootState) => ({
-  hasInitialized: state.config.hasInitialized,
-  connection: state.config.connection,
-  working: state.config.completingSetup || state.config.connection === ConnectionStatus.UNKNOWN,
+  hasInitialized: state.config.state.hasInitialized,
+  connection: state.config.state.connection,
+  working: state.config.state.completingSetup || state.config.state.connection === ConnectionStatus.UNKNOWN,
 });
 
 

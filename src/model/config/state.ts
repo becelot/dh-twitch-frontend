@@ -1,11 +1,13 @@
 import { ConnectionStatus } from './enums';
-import { ITwitchState } from './twitch/state';
+import { initialTwitchState, ITwitchState } from './twitch/state';
 
 
 export type ConfigState = Readonly<{
-  hasInitialized: boolean;
-  completingSetup: boolean;
-  connection: ConnectionStatus;
+  state: Readonly<{
+    hasInitialized: boolean;
+    completingSetup: boolean;
+    connection: ConnectionStatus;
+  }>;
   twitch: ITwitchState;
   appearance: Readonly<{
     decklist: Readonly<{
@@ -16,10 +18,12 @@ export type ConfigState = Readonly<{
 }>;
 
 export const configInitialState: ConfigState = {
-  hasInitialized: false,
-  completingSetup: false,
-  connection: ConnectionStatus.UNKNOWN,
-  twitch: { context: null, authorized: null },
+  state: {
+    hasInitialized: false,
+    completingSetup: false,
+    connection: ConnectionStatus.UNKNOWN,
+  },
+  twitch: initialTwitchState,
   appearance: {
     decklist: {
       width: 260,
