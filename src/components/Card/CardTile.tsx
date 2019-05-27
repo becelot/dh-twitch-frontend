@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   position: absolute;
 `;
 
-const CardNameText = styled.div<ICardTileInfo>`
+const CardNameText = styled.div<ICardTileInfo & {cardId: string}>`
     flex: 1 1 auto;
     margin-left: -${props => props.cardTileHeight / (2 * Math.sqrt(3))}px;
     padding-left: 15px;
@@ -39,7 +39,7 @@ const CardNameText = styled.div<ICardTileInfo>`
                     #2F2D2E,
                     #2F2D2E 20%,
                     rgba(47, 45, 46, 0) 40%,
-                    rgba(47, 45, 46, 0)), url("https://art.hearthstonejson.com/v1/tiles/EX1_277.png");
+                    rgba(47, 45, 46, 0)), url("https://art.hearthstonejson.com/v1/tiles/${props => props.cardId}.png");
     background-repeat: no-repeat;
     background-size: ${props => props.cardTileWidth - 32 - (props.cardTileHeight * Math.sqrt(3) / 2)}px 32px;
 
@@ -81,7 +81,7 @@ const CountBadge = styled.div<ICardTileInfo>`
     content: "";
     position: absolute;
     width: 3px;
-    height: ${props => props.cardTileHeight};
+    height: ${props => props.cardTileHeight}px;
     left: 4px;
 
     background: linear-gradient(#F5BC3B, #ECE43C, #F5BC3B);
@@ -182,7 +182,11 @@ export default class extends React.Component<Props & ICardTile, State> {
         onMouseLeave={this.onMouseOut}
       >
         <ManaGem>{this.props.count}</ManaGem>
-        <CardNameText cardTileHeight={this.props.cardTileHeight} cardTileWidth={this.props.width}>
+        <CardNameText
+          cardId={this.props.id}
+          cardTileHeight={this.props.cardTileHeight}
+          cardTileWidth={this.props.width}
+        >
           {this.props.name}
         </CardNameText>
         <CountBadge cardTileHeight={this.props.cardTileHeight} cardTileWidth={this.props.width}>
