@@ -5,7 +5,6 @@ import { initialTwitchState, ITwitchState } from './twitch/state';
 export type ConfigState = Readonly<{
   state: Readonly<{
     hasInitialized: boolean;
-    completingSetup: boolean;
     connection: ConnectionStatus;
   }>;
   twitch: ITwitchState;
@@ -20,7 +19,6 @@ export type ConfigState = Readonly<{
 export const configInitialState: ConfigState = {
   state: {
     hasInitialized: false,
-    completingSetup: false,
     connection: ConnectionStatus.UNKNOWN,
   },
   twitch: initialTwitchState,

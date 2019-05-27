@@ -9,7 +9,6 @@ import ConfigViewComponent from './ConfigViewComponent';
 const mapStateToProps = (state: Types.RootState) => ({
   hasInitialized: state.config.state.hasInitialized,
   connection: state.config.state.connection,
-  working: state.config.state.completingSetup || state.config.state.connection === ConnectionStatus.UNKNOWN,
 });
 
 
