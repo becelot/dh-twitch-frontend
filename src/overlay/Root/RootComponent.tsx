@@ -2,6 +2,7 @@ import { Props } from './index';
 import React from 'react';
 import { ConnectionStatus } from '../../model/config/enums';
 import CardLoader from '../../utils/CardLoader';
+import Overlay from '../Overlay';
 
 
 export default class extends React.Component<Props> {
@@ -26,7 +27,7 @@ export default class extends React.Component<Props> {
   public render() {
     return (
       <>
-        {this.props.ready ? <CardLoader /> : <div>Hello World</div>}
+        {this.props.ready ? <CardLoader><Overlay /> </CardLoader> : <div>Hello World</div>}
       </>
     );
   }
