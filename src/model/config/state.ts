@@ -6,6 +6,7 @@ export type ConfigState = Readonly<{
   state: Readonly<{
     hasInitialized: boolean;
     connection: ConnectionStatus;
+    locale: string;
   }>;
   twitch: ITwitchState;
   appearance: Readonly<{
@@ -20,6 +21,7 @@ export const configInitialState: ConfigState = {
   state: {
     hasInitialized: false,
     connection: ConnectionStatus.UNKNOWN,
+    locale: 'enUS',
   },
   twitch: initialTwitchState,
   appearance: {
