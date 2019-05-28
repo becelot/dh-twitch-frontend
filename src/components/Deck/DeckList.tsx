@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import CardTile from '../Card/';
-import { ICardTile } from '../Card/CardTile';
+import CardTile from '../CardTile/';
+import { ICardTile } from '../CardTile/CardTileComponent';
 
 const Wrapper = styled.div`
   width: 260px;

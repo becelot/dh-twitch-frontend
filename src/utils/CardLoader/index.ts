@@ -1,7 +1,7 @@
 import * as Types from 'Types';
 import { bindActionCreators, Dispatch } from 'redux';
 import { hearthstoneThunks } from '../../model/hearthstone/actions';
-import CardLoaderComponent from './CardLoader';
+import CardLoaderComponent from './CardLoaderComponent';
 import { connect } from 'react-redux';
 import { HearthstoneDbState } from '../../model/hearthstone/state';
 

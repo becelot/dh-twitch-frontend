@@ -1,7 +1,7 @@
 import * as Types from 'Types';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import RootComponent from './Root';
+import RootComponent from './RootComponent';
 import { configActions, configThunks } from '../../model/config/actions';
 import { ConnectionStatus } from '../../model/config/enums';
 

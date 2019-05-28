@@ -1,6 +1,6 @@
 import * as Types from 'Types';
 import { connect } from 'react-redux';
-import ManaGemComponent from './ManaGem';
+import ManaGemComponent from './ManaGemComponent';
 
 const mapStateToProps = (state: Types.RootState) => ({
   width: state.config.appearance.decklist.width,
@@ -15,5 +15,3 @@ const ManaGem = connect(
 )(ManaGemComponent);
 
 export default ManaGem;
-
-

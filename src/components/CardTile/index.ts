@@ -1,6 +1,6 @@
 import * as Types from 'Types';
 import { connect } from 'react-redux';
-import CardTileComponent from './CardTile';
+import CardTileComponent from './CardTileComponent';
 
 const mapStateToProps = (state: Types.RootState) => ({
   width: state.config.appearance.decklist.width,
