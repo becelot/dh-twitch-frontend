@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as styles from './ManaGem.scss';
 import styled from 'styled-components';
 import { Props } from './index';
 

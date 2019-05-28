@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import * as styles from './CardTile.scss';
 import { Props } from './index';
 import styled from 'styled-components';
 import ManaGem from '../ManaGem';
