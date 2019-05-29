@@ -4,17 +4,17 @@ import styled from 'styled-components';
 
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 300px;
   height: 100%;
   position: relative;
 `;
 
-const SidebarToggle = styled.div<{ expanded: boolean }>`
+const SidebarToggle = styled.div<{ expanded: boolean; width: string }>`
   position: absolute;
   width: 50px;
   height: 46.5vh;
   top: 26.75vh;
-  left: ${props => props.expanded ? '180' : '0'}px;
+  left: ${props => props.expanded ? props.width : '0'}px;
   background: linear-gradient(to right, rgb(211, 211, 211), rgb(176, 176, 176));
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -71,17 +71,18 @@ const SidebarToggle = styled.div<{ expanded: boolean }>`
   }
 `;
 
-const HiddenContent = styled.div<{expanded: boolean}>`
-  position: absolute;
+const HiddenContent = styled.div<{expanded: boolean; width: string}>`
+  position: relative;
   overflow: hidden;
   border: 1px solid rgb(214, 214, 214);
   box-shadow: 1px 0 10px rgb(132, 132, 132);
   top: 0;
   left: 0;
-  width: ${props => props.expanded ? '180' : '0'}px;
   height: 100%;
+  float: left;
+  width: ${props => props.expanded ? props.width : '0'}px;
   
-  transition: width 0.2s ease-in-out;
+  transition: width 0.25s ease-in-out;
 `;
 
 interface State {
@@ -99,8 +100,12 @@ export default class extends React.Component<Props, State> {
   public render() {
     return (
       <Wrapper>
-        <HiddenContent expanded={this.state.expanded}>Hallo Welt</HiddenContent>
-        <SidebarToggle expanded={this.state.expanded} onClick={e => this.setState(() => ({expanded: !this.state.expanded}))} />
+        <HiddenContent expanded={this.state.expanded} width={'180'}>Hallo Welt</HiddenContent>
+        <SidebarToggle
+          expanded={this.state.expanded}
+          width={'180'}
+          onClick={_ => this.setState(() => ({expanded: !this.state.expanded}))}
+        />
       </Wrapper>
     );
   }
