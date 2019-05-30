@@ -1,4 +1,4 @@
-import { ButtonBase, IconButton } from '@material-ui/core';
+import { ButtonBase, IconButton, withStyles } from '@material-ui/core';
 import { ArrowRight, ArrowLeft } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
@@ -43,13 +43,64 @@ const Header = styled.div`
   font-weight: bold;
   
   div {
-    display: block;
+    display: flex;
+    flex-direction: column;
     flex: 1 1 100%;
+    position: relative;
     
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 5px 0 5px;
+    div:nth-child(1) {
+      position: relative;
+      flex: 1 0 30px;
+      line-height: 30px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      
+      font-size: 1.2em;
+      padding: 0 5px 0 5px;
+    }
+    
+    div:nth-child(2) {
+      position: relative;
+      flex: 1 1 14px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 5px 0 5px;
+      
+      font-size: 0.7em;
+      line-height: 18px;
+      margin-top: -8px;
+      display: block;
+      
+      width: 80%;
+      align-self: center;
+      
+      span {
+        display: inline-block;
+        position: relative;
+        
+        &:before,&:after {
+          content: "";
+          position: absolute;
+          height: 4px;
+          border-bottom: 0.6px solid white;
+          border-top: 0.6px solid white;
+          top: 7px;
+          width: 600px;
+        }
+      
+        &:before {
+          right: 100%;
+          margin-right: 15px;
+        }
+        
+        &:after {
+          left: 100%;
+          margin-left: 15px;
+        }
+      }
+    }
   }
 `;
 
@@ -74,6 +125,14 @@ const Footer = styled.div`
   flex: 1 0 50px;
 `;
 
+const ArrowButton = withStyles({
+  root: {
+    borderRadius: '50%',
+    height: '24px',
+    top: '10px',
+  },
+})(ButtonBase);
+
 
 export default class extends React.Component {
   public render() {
@@ -81,13 +140,13 @@ export default class extends React.Component {
       <Sidebar>
         <Wrapper>
           <Header>
-            <ButtonBase href={''} style={{borderRadius: '50%', height: '24px', top: '10px'}} title={'Previous'}>
+            <ArrowButton title={'Previous'}>
               <ArrowLeft />
-            </ButtonBase>
-            <div>Deck History Tracker sdfjlkaergh awjle fgjeoöarg er g</div>
-            <ButtonBase href={''} style={{borderRadius: '50%', height: '24px', top: '10px'}} title={'Next'}>
+            </ArrowButton>
+            <div><div>Your deckname here gg</div><div><span>current deck</span></div></div>
+            <ArrowButton title={'Next'}>
               <ArrowRight />
-            </ButtonBase>
+            </ArrowButton>
           </Header>
           <DeckListWrapper>
             <DeckList deckList={[{id: 'UNG_035', name: 'Curious Glimmerroot', count: 1}]} deckName={''}/>
