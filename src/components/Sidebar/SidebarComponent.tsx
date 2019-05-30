@@ -9,24 +9,30 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const SidebarToggle = styled.div<{ expanded: boolean; width: string }>`
+const SidebarToggle = styled.div<{ expanded: boolean; width: number }>`
   position: absolute;
-  width: 50px;
-  height: 46.5vh;
-  top: 26.75vh;
-  left: ${props => props.expanded ? props.width : '0'}px;
-  background: linear-gradient(to right, rgb(211, 211, 211), rgb(176, 176, 176));
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  width: ${props => props.expanded ? '46' : '120'}px;
+  height: 46px;
+  top: calc(50% - 23px);
+  left: ${props => props.expanded ? props.width : '10'}px;
+  background: linear-gradient(65deg, #410000, #000739);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-bottom-leftt-radius: 2px;
   
-  border: 1.5px solid rgb(160, 160, 160);
   box-shadow: inset 0 0 0 rgb(160, 160, 160);
   box-sizing: border-box;
   
   transition: box-shadow 0.2s ease-in-out,
               border 0.2s ease-in-out,
-              left 0.2s ease-in-out;
+              left 0.2s ease-in-out,
+              width 0.2s ease-in-out;
+              
+  display: flex;
+  flex-direction: row;
   
+  ${''/*
   &:after {
     content: "";
     position: absolute;
@@ -63,15 +69,14 @@ const SidebarToggle = styled.div<{ expanded: boolean; width: string }>`
   
   &:hover {
     box-shadow: inset 0 0 10px rgb(130, 130, 130);
-    border: 3px solid rgb(170, 170, 170);
     
     &:after {
-      border-left: 28px solid rgb(30, 30, 30);
+      border-left: 25px solid rgb(30, 30, 30);
     }
-  }
+  }*/}
 `;
 
-const HiddenContent = styled.div<{expanded: boolean; width: string}>`
+const HiddenContent = styled.div<{expanded: boolean; width: number}>`
   position: relative;
   overflow: hidden;
   border: 1px solid rgb(214, 214, 214);
@@ -83,6 +88,36 @@ const HiddenContent = styled.div<{expanded: boolean; width: string}>`
   width: ${props => props.expanded ? props.width : '0'}px;
   
   transition: width 0.25s ease-in-out;
+`;
+
+const ToggleBadge = styled.div<{expanded: boolean}>`
+  flex: 1 1 auto;
+  line-height: 46px;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+`;
+
+const ToggleSelector = styled.div<{expanded: boolean}>`
+  position: relative;
+  flex: 0 0 46px;
+  
+  &:after {
+    content: "";
+    position: absolute;
+    
+    border-left: 25px solid rgb(161, 161, 161);
+    border-bottom: 12.5px solid transparent;
+    border-top: 12.5px solid transparent;
+    
+    left: 8px;
+    top: calc(50% - 12.5px);
+    
+    transition: border-left 0.2s ease-in-out, transform 0.2s ease-in-out;
+    
+    transform: rotateZ(${props => props.expanded ? '180' : '0'}deg);
+    transform-origin: center center;
+  }
 `;
 
 interface State {
@@ -100,12 +135,15 @@ export default class extends React.Component<Props, State> {
   public render() {
     return (
       <Wrapper>
-        <HiddenContent expanded={this.state.expanded} width={'180'}>Hallo Welt</HiddenContent>
+        <HiddenContent expanded={this.state.expanded} width={this.props.width}>Hallo Welt</HiddenContent>
         <SidebarToggle
           expanded={this.state.expanded}
-          width={'180'}
+          width={this.props.width}
           onClick={_ => this.setState(() => ({expanded: !this.state.expanded}))}
-        />
+        >
+          <ToggleBadge expanded={this.state.expanded} >DH</ToggleBadge>
+          <ToggleSelector expanded={this.state.expanded} />
+        </SidebarToggle>
       </Wrapper>
     );
   }
