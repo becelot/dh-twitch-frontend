@@ -7,16 +7,17 @@ import styled from 'styled-components';
 const mapStateToProps = (state: Types.RootState) => ({
   expanded: state.sidebar.expanded,
   width: state.config.appearance.overlay.width,
+  visible: state.sidebar.visible,
 });
 
 
 const Wrapper = styled.div`
-  width: 300px;
+  width: 400px;
   height: 100%;
   position: relative;
 `;
 
-const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; width: number }>`
+const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; width: number; visible: boolean }>`
   position: absolute;
   width: ${props => props.expanded ? '46' : '120'}px;
   height: 46px;
@@ -34,10 +35,13 @@ const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; w
   transition: box-shadow 0.2s ease-in-out,
               border 0.2s ease-in-out,
               left 0.2s ease-in-out,
-              width 0.2s ease-in-out;
+              width 0.2s ease-in-out,
+              transform 0.2s ease-in-out;
               
   display: flex;
   flex-direction: row;
+  
+  transform: translateX(${props => props.visible ? '0' : '-150'}px);
   
   ${''/*
   &:after {
@@ -129,15 +133,27 @@ const ToggleSelector = connect(mapStateToProps)(styled.div<{expanded: boolean}>`
 
 
 export default class extends React.Component<Props> {
+  private visibilityTimeout: number | null = null;
 
+  public onMouseOut = () => {
+    if (!this.props.expanded) {
+      this.visibilityTimeout = setTimeout(() => this.props.setVisibility(false), 5000);
+    }
+  };
+
+  public onMouseEnter = () => {
+    if (this.visibilityTimeout) {
+      window.clearTimeout(this.visibilityTimeout);
+    }
+
+    this.props.setVisibility(true);
+  };
 
   public render() {
     return (
-      <Wrapper>
-        <HiddenContent>Hallo Welt</HiddenContent>
-        <SidebarToggle
-          onClick={_ => this.props.toggleSidebar()}
-        >
+      <Wrapper onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseOut}>
+        <HiddenContent>{this.props.children}</HiddenContent>
+        <SidebarToggle onClick={_ => this.props.toggleSidebar()}>
           <ToggleBadge>DH</ToggleBadge>
           <ToggleSelector />
         </SidebarToggle>

@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       toggleSidebar: sidebarActions.toggleSidebar,
+      setVisibility: sidebarActions.setVisible,
     },
     dispatch);
 
