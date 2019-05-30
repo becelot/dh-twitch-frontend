@@ -46,7 +46,7 @@ const HexagonShadow = styled(HexagonSite)<IHexagonSite>`
 const ManaCostText = styled.div<IHexagonTile>`
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.3em;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   color: white;
   line-height: ${props => props.cardTileHeight}px;

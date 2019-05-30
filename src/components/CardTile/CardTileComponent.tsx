@@ -28,7 +28,7 @@ const CardNameText = styled.div<ICardTileInfo & {cardId: string}>`
 
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 0.7em;
+    font-size: 0.9em;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     color: white;
 
@@ -53,7 +53,7 @@ const CountBadge = styled.div<ICardTileInfo>`
   background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.3em;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
 
