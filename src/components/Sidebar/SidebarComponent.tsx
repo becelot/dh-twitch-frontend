@@ -1,6 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as Types from 'Types';
 import { Props } from './index';
 import styled from 'styled-components';
+
+const mapStateToProps = (state: Types.RootState) => ({
+  expanded: state.sidebar.expanded,
+  width: state.config.appearance.overlay.width,
+});
 
 
 const Wrapper = styled.div`
@@ -9,7 +16,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const SidebarToggle = styled.div<{ expanded: boolean; width: number }>`
+const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; width: number }>`
   position: absolute;
   width: ${props => props.expanded ? '46' : '120'}px;
   height: 46px;
@@ -74,9 +81,9 @@ const SidebarToggle = styled.div<{ expanded: boolean; width: number }>`
       border-left: 25px solid rgb(30, 30, 30);
     }
   }*/}
-`;
+`);
 
-const HiddenContent = styled.div<{expanded: boolean; width: number}>`
+const HiddenContent = connect(mapStateToProps)(styled.div<{expanded: boolean; width: number}>`
   position: relative;
   overflow: hidden;
   border: 1px solid rgb(214, 214, 214);
@@ -88,17 +95,17 @@ const HiddenContent = styled.div<{expanded: boolean; width: number}>`
   width: ${props => props.expanded ? props.width : '0'}px;
   
   transition: width 0.25s ease-in-out;
-`;
+`);
 
-const ToggleBadge = styled.div<{expanded: boolean}>`
+const ToggleBadge = connect(mapStateToProps)(styled.div<{expanded: boolean}>`
   flex: 1 1 auto;
   line-height: 46px;
   justify-content: center;
   text-align: center;
   overflow: hidden;
-`;
+`);
 
-const ToggleSelector = styled.div<{expanded: boolean}>`
+const ToggleSelector = connect(mapStateToProps)(styled.div<{expanded: boolean}>`
   position: relative;
   flex: 0 0 46px;
   
@@ -118,31 +125,21 @@ const ToggleSelector = styled.div<{expanded: boolean}>`
     transform: rotateZ(${props => props.expanded ? '180' : '0'}deg);
     transform-origin: center center;
   }
-`;
+`);
 
-interface State {
-  expanded: boolean;
-}
 
-export default class extends React.Component<Props, State> {
+export default class extends React.Component<Props> {
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = { expanded: false };
-  }
 
   public render() {
     return (
       <Wrapper>
-        <HiddenContent expanded={this.state.expanded} width={this.props.width}>Hallo Welt</HiddenContent>
+        <HiddenContent>Hallo Welt</HiddenContent>
         <SidebarToggle
-          expanded={this.state.expanded}
-          width={this.props.width}
-          onClick={_ => this.setState(() => ({expanded: !this.state.expanded}))}
+          onClick={_ => this.props.toggleSidebar()}
         >
-          <ToggleBadge expanded={this.state.expanded} >DH</ToggleBadge>
-          <ToggleSelector expanded={this.state.expanded} />
+          <ToggleBadge>DH</ToggleBadge>
+          <ToggleSelector />
         </SidebarToggle>
       </Wrapper>
     );
