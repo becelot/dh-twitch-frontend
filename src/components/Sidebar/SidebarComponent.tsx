@@ -90,15 +90,15 @@ const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; w
 const HiddenContent = connect(mapStateToProps)(styled.div<{expanded: boolean; width: number}>`
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(214, 214, 214);
-  box-shadow: 1px 0 10px rgb(132, 132, 132);
+  box-shadow: ${props => props.expanded ? '1px 0 10px 10px rgb(0,0,0,0.5)' : 'unset'};
   top: 0;
   left: 0;
   height: 100%;
   float: left;
   width: ${props => props.expanded ? props.width : '0'}px;
   
-  transition: width 0.25s ease-in-out;
+  transition: width 0.25s ease-in-out,
+              box-shadow 0.35s ease-in-out;
 `);
 
 const ToggleBadge = connect(mapStateToProps)(styled.div<{expanded: boolean}>`
