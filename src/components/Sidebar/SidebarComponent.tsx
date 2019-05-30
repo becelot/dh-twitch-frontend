@@ -89,15 +89,17 @@ const SidebarToggle = connect(mapStateToProps)(styled.div<{ expanded: boolean; w
 
 const HiddenContent = connect(mapStateToProps)(styled.div<{expanded: boolean; width: number}>`
   position: relative;
-  overflow: hidden;
-  box-shadow: ${props => props.expanded ? '1px 0 10px 10px rgb(0,0,0,0.5)' : 'unset'};
+  overflow: ${props => props.expanded ? 'unset' : 'hidden'};
+  box-shadow: ${props => props.expanded ? '1px 0 10px 10px rgb(55,88,141,0.5)' : 'unset'};
   top: 0;
   left: 0;
   height: 100%;
   float: left;
-  width: ${props => props.expanded ? props.width : '0'}px;
+  width: ${props => props.width}px;
+  transform: translateX(-${props => props.expanded ? '0' : props.width.toString() }px);
+  transform-origin: left center;
   
-  transition: width 0.25s ease-in-out,
+  transition: transform 0.25s ease-in-out,
               box-shadow 0.35s ease-in-out;
 `);
 
