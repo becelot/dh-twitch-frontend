@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const mapStateToProps = (state: Types.RootState) => ({
   expanded: state.sidebar.expanded,
   width: state.config.appearance.overlay.width,
-  visible: state.sidebar.visible,
+  visible: state.sidebar.visible || state.sidebar.expanded,
 });
 
 
