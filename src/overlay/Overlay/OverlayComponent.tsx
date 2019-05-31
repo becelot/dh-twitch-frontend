@@ -115,14 +115,29 @@ const DeckListWrapper = styled.div`
   background-position: -200px -140px;
   background-repeat: no-repeat;
   
-  display: flex;
-  justify-content: center;
+  text-align: center;
   
 `;
 
 const Footer = styled.div`
   position: relative;
   flex: 1 0 50px;
+`;
+
+const DeckListBox = styled.div`
+  position: relative;
+  align-self: center;
+  width: 280px;
+  
+  border-left: 3px solid #84672D;
+  border-top: 3px solid #EAC884;
+  border-right: 3px solid #84672D;
+  border-bottom: 3px solid #4E391F;
+  
+  display: inline-block;
+  text-align: center;
+  background: rgb(55,88,141);
+  padding: 10px 0 10px 0;
 `;
 
 const ArrowButton = withStyles({
@@ -149,7 +164,9 @@ export default class extends React.Component {
             </ArrowButton>
           </Header>
           <DeckListWrapper>
-            <DeckList deckList={[{id: 'UNG_035', name: 'Curious Glimmerroot', count: 1}]} deckName={''}/>
+            <DeckListBox>
+              <DeckList deckList={[{id: 'UNG_035', name: 'Curious Glimmerroot', count: 1}]} deckName={''}/>
+            </DeckListBox>
           </DeckListWrapper>
           <Footer />
         </Wrapper>
