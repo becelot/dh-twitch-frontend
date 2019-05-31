@@ -19,7 +19,7 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/configured/${state.config.twitch.authorized.channelId}`,
+      `http://localhost:5000/api/user/${state.config.twitch.authorized.channelId}/configured`,
       {
         headers: {
           Accept: 'application/json',
