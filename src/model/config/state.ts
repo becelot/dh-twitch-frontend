@@ -14,6 +14,9 @@ export type ConfigState = Readonly<{
       width: number;
       tileHeight: number;
     }>;
+    overlay: Readonly<{
+      width: number;
+    }>;
   }>;
 }>;
 
@@ -28,6 +31,9 @@ export const configInitialState: ConfigState = {
     decklist: {
       width: 260,
       tileHeight: 32,
+    },
+    overlay: {
+      width: 300,
     },
   },
 };
