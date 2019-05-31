@@ -6,6 +6,7 @@ import { ICardTile } from '../CardTile/CardTileComponent';
 const Wrapper = styled.div`
   width: 260px;
   position: relative;
+  display: inline-block;
 `;
 
 const DeckListWrapper = styled.ul`
