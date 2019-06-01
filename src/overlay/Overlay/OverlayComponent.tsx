@@ -142,6 +142,16 @@ const DeckListBox = styled.div`
   padding: 10px 0 10px 0;
 `;
 
+const StateLoadingWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgb(214,214,214, 0.8);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const ArrowButton = withStyles({
   root: {
     borderRadius: '50%',
@@ -167,32 +177,32 @@ export default class extends React.Component<Props> {
         break;
       case OverlayState.IDLE:
         content = (
-          <DeckListBox>
+          <>
             <DeckList
               deckCode={this.props.recentDecks[this.props.index].code}
               deckName={this.props.recentDecks[this.props.index].name}
             />
-          </DeckListBox>
+          </>
         );
         break;
       case OverlayState.REQUEST_ERROR:
         content = (
-          <div style={{width: '100%', height: '100%', background: 'rgb(214,214,214, 0.8)', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <StateLoadingWrapper>
             <div>
               <p>Error contacting Deck History Server</p>
               <p>{this.props.error}</p>
             </div>
-          </div>
+          </StateLoadingWrapper>
         );
         break;
       case OverlayState.REQUEST_PENDING:
         content = (
-          <div style={{width: '100%', height: '100%', background: 'rgb(214,214,214, 0.8)', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <StateLoadingWrapper>
             <div>
               <p>Loading deck list</p>
               <CircularProgress thickness={4} size={50} />
             </div>
-          </div>
+          </StateLoadingWrapper>
         );
     }
 
