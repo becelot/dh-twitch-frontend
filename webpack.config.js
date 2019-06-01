@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackIncludeSiblingChunksPlugin = require("html-webpack-include-sibling-chunks-plugin");
 const pkg = require(path.resolve(__dirname, "package"));
 
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const styledComponentsTransformer = createStyledComponentsTransformer();
+
 module.exports = (env, argv) => {
 	const plugins = [];
 
@@ -23,7 +26,16 @@ module.exports = (env, argv) => {
 				{
 					test: /\.tsx?$/,
 					exclude: /node_modules/,
-					use: ["babel-loader", "ts-loader"]
+					use: [
+						{
+							loader: "babel-loader"
+						},
+						{
+							loader: "ts-loader",
+							options: {
+								getCustomTransformers: () => ({before: [styledComponentsTransformer]})
+							}
+						}]
 				},
 				{
 					test: /.js$/,
