@@ -1,9 +1,11 @@
-import { ButtonBase, IconButton, withStyles } from '@material-ui/core';
+import { ButtonBase, CircularProgress, IconButton, withStyles } from '@material-ui/core';
 import { ArrowRight, ArrowLeft } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
-import { DeckList } from '../../components/Deck/DeckList';
+import DeckList from '../../components/DeckList';
 import Sidebar from '../../components/Sidebar';
+import { OverlayState } from '../../model/overlay/state';
+import { Props } from './index';
 
 const Wrapper = styled.div`
   position: relative;
@@ -110,10 +112,10 @@ const DeckListWrapper = styled.div`
   height: calc(100% - 200px);
   width: auto;
   
-  background: url("https://gamepedia.cursecdn.com/hearthstone_gamepedia/3/31/Thrall-full.jpg?version=cb83492715975917d2416b8832ea9751");
-  background-size: auto calc(100vh - 60px);
-  background-position: -200px -140px;
-  background-repeat: no-repeat;
+  // background: url("https://c-2rtwjumjzx7864x24lfrjujinfx2ehzwx78jhisx2ehtr.g00.gamepedia.com/g00/3_c-2mjfwymx78ytsj.lfrjujinf.htr_/c-2RTWJUMJZX64x24myyux78x3ax2fx2flfrjujinf.hzwx78jhis.htrx2fmjfwymx78ytsj_lfrjujinfx2f9x2f96x2fFsizns-kzqq.oulx3fajwx78ntsx3d36934j43597jkff8873f8241fh661024_$/$/$/$/$?i10c.ua=1&i10c.dv=15");
+  // background-size: auto calc(100vh - 60px);
+  // background-position: -200px -140px;
+  // background-repeat: no-repeat;
   
   text-align: center;
   
@@ -136,7 +138,7 @@ const DeckListBox = styled.div`
   
   display: inline-block;
   text-align: center;
-  background: rgb(55,88,141);
+  background: linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(55,88,141, 0.7));
   padding: 10px 0 10px 0;
 `;
 
@@ -149,24 +151,66 @@ const ArrowButton = withStyles({
 })(ButtonBase);
 
 
-export default class extends React.Component {
+export default class extends React.Component<Props> {
+
+  public componentDidMount(): void {
+    this.props.fetchRecent();
+  }
+
   public render() {
+
+    let content = null;
+
+    switch (this.props.working) {
+      case OverlayState.UNKNOWN:
+        content = null;
+        break;
+      case OverlayState.IDLE:
+        content = (
+          <DeckListBox>
+            <DeckList
+              deckCode={this.props.recentDecks[this.props.index].code}
+              deckName={this.props.recentDecks[this.props.index].name}
+            />
+          </DeckListBox>
+        );
+        break;
+      case OverlayState.REQUEST_ERROR:
+        content = (
+          <div style={{width: '100%', height: '100%', background: 'rgb(214,214,214, 0.8)', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div>
+              <p>Error contacting Deck History Server</p>
+              <p>{this.props.error}</p>
+            </div>
+          </div>
+        );
+        break;
+      case OverlayState.REQUEST_PENDING:
+        content = (
+          <div style={{width: '100%', height: '100%', background: 'rgb(214,214,214, 0.8)', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div>
+              <p>Loading deck list</p>
+              <CircularProgress thickness={4} size={50} />
+            </div>
+          </div>
+        );
+    }
+
+
     return (
       <Sidebar>
         <Wrapper>
           <Header>
-            <ArrowButton title={'Previous'}>
+            <ArrowButton title={'Previous'} disabled={!this.props.hasPrevious} onClick={this.props.previousDeck}>
               <ArrowLeft />
             </ArrowButton>
-            <div><div>Your deckname here gg</div><div><span>current deck</span></div></div>
-            <ArrowButton title={'Next'}>
+            <div><div>Deck History Tracker</div><div><span>{this.props.currentDeckLabel}</span></div></div>
+            <ArrowButton title={'Next'} disabled={!this.props.hasNext} onClick={this.props.nextDeck}>
               <ArrowRight />
             </ArrowButton>
           </Header>
           <DeckListWrapper>
-            <DeckListBox>
-              <DeckList deckList={[{id: 'UNG_035', name: 'Curious Glimmerroot', count: 1}]} deckName={''}/>
-            </DeckListBox>
+            {content}
           </DeckListWrapper>
           <Footer />
         </Wrapper>
