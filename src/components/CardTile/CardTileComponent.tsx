@@ -35,10 +35,12 @@ const CardNameText = styled.div<ICardTileInfo & {cardId: string}>`
     // background
     background: linear-gradient(
                     to right,
-                    #2F2D2E,
-                    #2F2D2E 20%,
-                    rgba(47, 45, 46, 0) 40%,
-                    rgba(47, 45, 46, 0)), url("https://art.hearthstonejson.com/v1/tiles/${props => props.cardId}.png");
+                    #2F2D2E 0%,
+                    #2F2D2E 25%,
+                    rgba(47,45,46,0.8) 40%,
+                    rgba(47,45,46,0.4) 50%,
+                    rgba(47,45,46,0) 55%,
+                    rgba(47,45,46,0)), url("https://art.hearthstonejson.com/v1/tiles/${props => props.cardId}.png");
     background-repeat: no-repeat;
     background-size: ${props => props.cardTileWidth - 32 - (props.cardTileHeight * Math.sqrt(3) / 2)}px 32px;
 
@@ -93,6 +95,7 @@ export interface ICardTile {
   count: number;
   id: string;
   name: string;
+  cost: number;
 }
 
 interface State {
@@ -157,7 +160,7 @@ export default class extends React.Component<Props & ICardTile, State> {
             position: 'absolute',
             height,
             top: posTop,
-            left: rect.width + elementWidth / 2,
+            left: rect.width + 30,
             overflow: 'hidden',
           }}
         >
@@ -180,7 +183,7 @@ export default class extends React.Component<Props & ICardTile, State> {
         onMouseEnter={this.onMouseOver}
         onMouseLeave={this.onMouseOut}
       >
-        <ManaGem>{this.props.count}</ManaGem>
+        <ManaGem>{this.props.cost}</ManaGem>
         <CardNameText
           cardId={this.props.id}
           cardTileHeight={this.props.cardTileHeight}
