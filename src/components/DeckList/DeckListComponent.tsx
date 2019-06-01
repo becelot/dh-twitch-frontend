@@ -5,6 +5,10 @@ import { HearthDB } from '../../model/hearthstone/state';
 import CardTile from '../CardTile/';
 import { ICardTile } from '../CardTile/CardTileComponent';
 
+import ScrollArea from 'react-scrollbar';
+
+
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -12,30 +16,12 @@ const Wrapper = styled.div`
   
   display: flex;
   flex-direction: column;
-  justify-content: center;
-`;
-
-const DeckListBox = styled.div`
-  flex: 1 1 auto;
-  display: inline-block;
-  overflow: hidden;
-  width: 280px;
-
-  align-self: center;
-  
-  border-left: 3px solid #84672D;
-  border-top: 3px solid #EAC884;
-  border-right: 3px solid #84672D;
-  border-bottom: 3px solid #4E391F;
-  
-  text-align: center;
-  background: linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(55,88,141, 0.7));
 `;
 
 const DeckListWrapper = styled.div`
   width: 260px;
   position: relative;
-  display: inline-block;
+  padding-left: 5px;
   
   ul {
     position: relative;
@@ -101,14 +87,31 @@ export default class extends React.Component<Props & {db: HearthDB}> {
         <Header>
           Test
         </Header>
-        <DeckListBox>
+        <ScrollArea
+          style={{
+            flex: '1 1 0',
+            display: 'inline-block',
+            width: '285px',
+            alignSelf: 'center',
+            borderLeft: '3px solid #84672D',
+            borderTop: '3px solid #EAC884',
+            borderRight: '3px solid #84672D',
+            borderBottom: '3px solid #4E391F',
+            textAlign: 'center',
+            background: 'linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(55,88,141, 0.7))',
+            overflow: 'hidden',
+          }}
+          smoothScrolling={true}
+          speed={0.8}
+        >
           <DeckListWrapper>
             <ul>
+
               {this.renderDeckList(this.generateTileInfo(this.props.deckCode))}
+
             </ul>
           </DeckListWrapper>
-        </DeckListBox>
-
+        </ScrollArea>
       </Wrapper>
     );
   }
