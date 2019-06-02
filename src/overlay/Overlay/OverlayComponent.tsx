@@ -108,8 +108,8 @@ const Header = styled.div`
 
 const DeckListWrapper = styled.div`
   position: relative;
-  flex: 0 0 auto;
-  height: calc(100% - 200px);
+  flex: 1 0 auto;
+  // height: calc(100% - 200px);
   width: auto;
   
   // background: url("https://c-2rtwjumjzx7864x24lfrjujinfx2ehzwx78jhisx2ehtr.g00.gamepedia.com/g00/3_c-2mjfwymx78ytsj.lfrjujinf.htr_/c-2RTWJUMJZX64x24myyux78x3ax2fx2flfrjujinf.hzwx78jhis.htrx2fmjfwymx78ytsj_lfrjujinfx2f9x2f96x2fFsizns-kzqq.oulx3fajwx78ntsx3d36934j43597jkff8873f8241fh661024_$/$/$/$/$?i10c.ua=1&i10c.dv=15");
@@ -134,7 +134,7 @@ const DeckListShown = styled.div<{index: number; currentIndex: number}>`
 
 const Footer = styled.div`
   position: relative;
-  flex: 1 0 50px;
+  flex: 0 0 50px;
 `;
 
 const StateLoadingWrapper = styled.div`
