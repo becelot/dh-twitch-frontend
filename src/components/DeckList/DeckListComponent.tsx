@@ -1,4 +1,5 @@
 import { DeckDefinition, decode } from 'deckstrings';
+import { CardData } from 'hearthstonejson-client';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { HearthDB } from '../../model/hearthstone/state';
@@ -6,6 +7,34 @@ import CardTile from '../CardTile/';
 import { ICardTile } from '../CardTile/CardTileComponent';
 
 import ScrollArea from 'react-scrollbar';
+
+
+import DruidBadge from '../../assets/hero_badges/druid.png';
+import HunterBadge from '../../assets/hero_badges/hunter.png';
+import MageBadge from '../../assets/hero_badges/mage.png';
+import PaladinBadge from '../../assets/hero_badges/paladin.png';
+import PriestBadge from '../../assets/hero_badges/priest.png';
+import RogueBadge from '../../assets/hero_badges/rogue.png';
+import ShamanBadge from '../../assets/hero_badges/shaman.png';
+import WarlockBadge from '../../assets/hero_badges/warlock.png';
+import WarriorBadge from '../../assets/hero_badges/warrior.png';
+
+
+interface Dictionary {
+  [key: string]: string;
+}
+
+const ClassToBadge: Dictionary = {
+  DRUID: DruidBadge,
+  HUNTER: HunterBadge,
+  MAGE: MageBadge,
+  PALADIN: PaladinBadge,
+  PRIEST: PriestBadge,
+  ROGUE: RogueBadge,
+  SHAMAN: ShamanBadge,
+  WARLOCK: WarlockBadge,
+  WARRIOR: WarriorBadge,
+};
 
 
 
@@ -42,7 +71,7 @@ const DeckListWrapper = styled.div`
 `;
 
 
-const Header = styled.div`
+const Header = styled.div<{badge: string}>`
   position: relative;
   flex: 0 0 28px;
   line-height: 28px;
@@ -72,9 +101,9 @@ const Header = styled.div`
     width: 51px;
     height: 51px;
     border-radius: 50%;
-    border: 1px solid gold;
     
-    background: white;
+    background: url(${props => props.badge});
+    background-size: cover;
   }
 `;
 
@@ -98,10 +127,9 @@ export default class extends React.Component<Props & {db: HearthDB}> {
     return childrean;
   }
 
-  public generateTileInfo = (deckCode: string): ICardTile[]  => {
-    const deck: DeckDefinition = decode(deckCode);
+  public generateTileInfo = (cards: Array<[number, number]>): ICardTile[]  => {
 
-    return deck.cards.map(card => {
+    return cards.map(card => {
       const realCard = this.props.db[card[0]];
       return {
         id: realCard.id || '' ,
@@ -115,9 +143,15 @@ export default class extends React.Component<Props & {db: HearthDB}> {
   };
 
   public render() {
+    const deck: DeckDefinition = decode(this.props.deckCode);
+
+    const hero: CardData = this.props.db[deck.heroes[0]];
+    const heroClass: string | undefined = hero.cardClass && hero.cardClass.toUpperCase();
+    const badge = (heroClass && heroClass in ClassToBadge ? ClassToBadge[heroClass] : '');
+
     return (
       <Wrapper>
-        <Header>
+        <Header badge={badge}>
           {this.props.deckName}
         </Header>
         <ScrollArea
@@ -139,9 +173,7 @@ export default class extends React.Component<Props & {db: HearthDB}> {
         >
           <DeckListWrapper>
             <ul>
-
-              {this.renderDeckList(this.generateTileInfo(this.props.deckCode))}
-
+              {this.renderDeckList(this.generateTileInfo(deck.cards))}
             </ul>
           </DeckListWrapper>
         </ScrollArea>
