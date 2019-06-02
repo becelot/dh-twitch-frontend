@@ -20,7 +20,8 @@ import WarlockBadge from '../../assets/hero_badges/warlock.png';
 import WarriorBadge from '../../assets/hero_badges/warrior.png';
 
 
-
+import DruidBg from '../../assets/hero_bg/druid.jpg';
+import PriestBg from '../../assets/hero_bg/priest.jpg';
 
 import CopyToClipboardIcon from '../../assets/icons/CopyUrlLink.svg';
 
@@ -29,6 +30,8 @@ interface Dictionary {
 }
 
 const ClassToBg: Dictionary = {
+  DRUID: DruidBg,
+  PRIEST: PriestBg,
   DEFAULT: 'unset',
 };
 
@@ -53,18 +56,23 @@ const ClassToGradient: Dictionary = {
 
 const ClassToBgGradient: Dictionary = {
   DRUID: 'linear-gradient(65deg, rgba(90, 67, 65, 0.7), rgba(124, 93, 92, 0.7))',
+  PRIEST: 'linear-gradient(65deg, rgba(17, 71, 89, 0.7), rgba(40, 95, 110, 0.7))',
   DEFAULT: 'linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(124, 93, 92, 0.7))',
 };
 
 
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{hero: string}>`
   width: 100%;
   height: 100%;
   position: relative;
   
   display: flex;
   flex-direction: column;
+  
+  background: url(${props => props.hero in ClassToBg ? ClassToBg[props.hero]  : ClassToBg.DEFAULT});
+  background-size: cover;
+  background-position: center center;
 `;
 
 const DeckListWrapper = styled.div`
@@ -181,7 +189,7 @@ export default class extends React.Component<Props & {db: HearthDB}> {
     const heroClass: string = (hero.cardClass && hero.cardClass.toUpperCase()) || 'DEFAULT';
 
     return (
-      <Wrapper>
+      <Wrapper hero={heroClass}>
         <Header hero={heroClass}>
           {this.props.deckName}
         </Header>
