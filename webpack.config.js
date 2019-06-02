@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
 						{
 							loader: "file-loader",
 							options: {
-								name: "[name].[ext]",
+								name: "[folder]/[name]-[hash].[ext]",
 								outputPath: "img/",
 							},
 						},
