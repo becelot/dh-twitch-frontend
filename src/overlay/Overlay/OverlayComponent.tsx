@@ -153,6 +153,9 @@ const ArrowButton = withStyles({
     height: '24px',
     top: '10px',
   },
+  disabled: {
+    color: 'gray',
+  },
 })(ButtonBase);
 
 
@@ -224,11 +227,19 @@ export default class extends React.Component<Props> {
       <Sidebar>
         <Wrapper>
           <Header>
-            <ArrowButton title={'Previous'} disabled={!this.props.hasPrevious} onClick={this.props.previousDeck}>
+            <ArrowButton
+              title={'Previous'}
+              disabled={!this.props.hasPrevious}
+              onClick={this.props.previousDeck}
+            >
               <ArrowLeft />
             </ArrowButton>
             <div><div>Deck History Tracker</div><div><span>{this.props.currentDeckLabel}</span></div></div>
-            <ArrowButton title={'Next'} disabled={!this.props.hasNext} onClick={this.props.nextDeck}>
+            <ArrowButton
+              title={'Next'}
+              disabled={!this.props.hasNext}
+              onClick={this.props.nextDeck}
+            >
               <ArrowRight />
             </ArrowButton>
           </Header>
