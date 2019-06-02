@@ -20,9 +20,17 @@ import WarlockBadge from '../../assets/hero_badges/warlock.png';
 import WarriorBadge from '../../assets/hero_badges/warrior.png';
 
 
+
+
+import CopyToClipboardIcon from '../../assets/icons/CopyUrlLink.svg';
+
 interface Dictionary {
   [key: string]: string;
 }
+
+const ClassToBg: Dictionary = {
+  DEFAULT: 'unset',
+};
 
 const ClassToBadge: Dictionary = {
   DRUID: DruidBadge,
@@ -34,6 +42,18 @@ const ClassToBadge: Dictionary = {
   SHAMAN: ShamanBadge,
   WARLOCK: WarlockBadge,
   WARRIOR: WarriorBadge,
+  DEFAULT: '',
+};
+
+const ClassToGradient: Dictionary = {
+  DRUID: 'linear-gradient(#5A4341,#5A4341 10%,#7C5D5C 95%,#7C5D5C)',
+  PRIEST: 'linear-gradient(#114759,#114759 10%,#285F6E 95%,#285F6E);',
+  DEFAULT: 'linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C)',
+};
+
+const ClassToBgGradient: Dictionary = {
+  DRUID: 'linear-gradient(65deg, rgba(90, 67, 65, 0.7), rgba(124, 93, 92, 0.7))',
+  DEFAULT: 'linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(124, 93, 92, 0.7))',
 };
 
 
@@ -71,12 +91,12 @@ const DeckListWrapper = styled.div`
 `;
 
 
-const Header = styled.div<{badge: string}>`
+const Header = styled.div<{hero: string}>`
   position: relative;
   flex: 0 0 28px;
   line-height: 28px;
   
-  background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
+  background: ${props => props.hero in ClassToBadge ? ClassToGradient[props.hero] : ClassToGradient.DEFAULT};
   border-left: 3px solid #84672D;
   border-top: 3px solid #EAC884;
   border-right: 3px solid #84672D;
@@ -92,6 +112,18 @@ const Header = styled.div<{badge: string}>`
   
   z-index: 2;
   
+  &:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: calc(100% - 24px);
+    
+    width: 20px;
+    height: 20px;
+    
+    background: url(${CopyToClipboardIcon});
+  }
+  
   &:after {
     content: "";
     position: absolute;
@@ -102,7 +134,7 @@ const Header = styled.div<{badge: string}>`
     height: 51px;
     border-radius: 50%;
     
-    background: url(${props => props.badge});
+    background: url(${props => props.hero in ClassToBadge ? ClassToBadge[props.hero] : ClassToBadge.DEFAULT});
     background-size: cover;
   }
 `;
@@ -146,12 +178,11 @@ export default class extends React.Component<Props & {db: HearthDB}> {
     const deck: DeckDefinition = decode(this.props.deckCode);
 
     const hero: CardData = this.props.db[deck.heroes[0]];
-    const heroClass: string | undefined = hero.cardClass && hero.cardClass.toUpperCase();
-    const badge = (heroClass && heroClass in ClassToBadge ? ClassToBadge[heroClass] : '');
+    const heroClass: string = (hero.cardClass && hero.cardClass.toUpperCase()) || 'DEFAULT';
 
     return (
       <Wrapper>
-        <Header badge={badge}>
+        <Header hero={heroClass}>
           {this.props.deckName}
         </Header>
         <ScrollArea
@@ -165,7 +196,7 @@ export default class extends React.Component<Props & {db: HearthDB}> {
             borderRight: '3px solid #84672D',
             borderBottom: '3px solid #4E391F',
             textAlign: 'center',
-            background: 'linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(55,88,141, 0.7))',
+            background: heroClass in ClassToBgGradient ? ClassToBgGradient[heroClass] : ClassToBgGradient.DEFAULT,
             overflow: 'hidden',
           }}
           smoothScrolling={true}
