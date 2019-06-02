@@ -1,6 +1,6 @@
 import { ButtonBase, CircularProgress, IconButton, withStyles } from '@material-ui/core';
 import { ArrowRight, ArrowLeft } from '@material-ui/icons';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import DeckList from '../../components/DeckList';
 import Sidebar from '../../components/Sidebar';
@@ -121,25 +121,20 @@ const DeckListWrapper = styled.div`
   
 `;
 
+const DeckListShown = styled.div<{index: number; currentIndex: number}>`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  
+  transform: rotateY(${props => (props.currentIndex === props.index ? 0 : (props.currentIndex > props.index ? -90 : 90)).toString()}deg);
+  transform-origin: 155px 0 -155px;
+  
+  transition: transform 0.45s ease-in-out;
+`;
+
 const Footer = styled.div`
   position: relative;
   flex: 1 0 50px;
-`;
-
-const DeckListBox = styled.div`
-  position: relative;
-  align-self: center;
-  width: 280px;
-  
-  border-left: 3px solid #84672D;
-  border-top: 3px solid #EAC884;
-  border-right: 3px solid #84672D;
-  border-bottom: 3px solid #4E391F;
-  
-  display: inline-block;
-  text-align: center;
-  background: linear-gradient(65deg,rgba( 84, 124, 188, 0.7),rgba(55,88,141, 0.7));
-  padding: 10px 0 10px 0;
 `;
 
 const StateLoadingWrapper = styled.div`
@@ -167,6 +162,27 @@ export default class extends React.Component<Props> {
     this.props.fetchRecent();
   }
 
+  public renderRecentDecks = () => {
+    const renderedDecks: ReactElement[] = [];
+
+    for (let i = 0; i < this.props.recentDecks.length; i++) {
+      renderedDecks.push(
+        <DeckListShown
+          index={i}
+          currentIndex={this.props.index}
+          key={this.props.recentDecks[i].code}
+        >
+          <DeckList
+            deckName={this.props.recentDecks[i].name}
+            deckCode={this.props.recentDecks[i].code}
+          />
+        </DeckListShown>
+        );
+    }
+
+    return renderedDecks;
+  };
+
   public render() {
 
     let content = null;
@@ -178,10 +194,7 @@ export default class extends React.Component<Props> {
       case OverlayState.IDLE:
         content = (
           <>
-            <DeckList
-              deckCode={this.props.recentDecks[this.props.index].code}
-              deckName={this.props.recentDecks[this.props.index].name}
-            />
+            {this.renderRecentDecks()}
           </>
         );
         break;
