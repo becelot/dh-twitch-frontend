@@ -24,6 +24,7 @@ const DeckListWrapper = styled.div`
   padding-left: 5px;
   
   ul {
+    padding-top: 6px;
     position: relative;
     list-style-type: none;
     padding-inline-start: 0px;
@@ -42,7 +43,39 @@ const DeckListWrapper = styled.div`
 
 
 const Header = styled.div`
-  flex: 0 0 40px;
+  position: relative;
+  flex: 0 0 28px;
+  line-height: 28px;
+  
+  background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
+  border-left: 3px solid #84672D;
+  border-top: 3px solid #EAC884;
+  border-right: 3px solid #84672D;
+  border-bottom: 3px solid #4E391F;
+  
+  margin-left: 25.5px;
+  box-sizing: border-box;
+  
+  color: white;
+  text-align: center;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-weight: bold;
+  
+  z-index: 2;
+  
+  &:after {
+    content: "";
+    position: absolute;
+    top: -12.75px;
+    left: -25.5px;
+    
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    border: 1px solid gold;
+    
+    background: white;
+  }
 `;
 
 interface Props {
@@ -85,7 +118,7 @@ export default class extends React.Component<Props & {db: HearthDB}> {
     return (
       <Wrapper>
         <Header>
-          Test
+          {this.props.deckName}
         </Header>
         <ScrollArea
           style={{
