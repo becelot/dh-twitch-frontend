@@ -1,3 +1,4 @@
+import { ButtonBase, Icon, withStyles } from '@material-ui/core';
 import { DeckDefinition, decode } from 'deckstrings';
 import { CardData } from 'hearthstonejson-client';
 import React, { ReactElement } from 'react';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 import { HearthDB } from '../../model/hearthstone/state';
 import CardTile from '../CardTile/';
 import { ICardTile } from '../CardTile/CardTileComponent';
+import * as clipboard from 'clipboard-polyfill';
 
 import ScrollArea from 'react-scrollbar';
 
@@ -148,17 +150,17 @@ const Header = styled.div<{hero: string}>`
   
   z-index: 2;
   
-  &:before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: calc(100% - 24px);
-    
-    width: 20px;
-    height: 20px;
-    
-    background: url(${CopyToClipboardIcon});
-  }
+  // &:before {
+  //   content: "";
+  //   position: absolute;
+  //   top: 4px;
+  //   left: calc(100% - 24px);
+  //  
+  //   width: 20px;
+  //   height: 20px;
+  //  
+  //   background: url(${CopyToClipboardIcon});
+  // }
   
   &:after {
     content: "";
@@ -175,13 +177,46 @@ const Header = styled.div<{hero: string}>`
   }
 `;
 
+const CopyButton = withStyles({
+  root: {
+    width: '34px',
+    height: '28px',
+    position: 'absolute',
+    top: 0,
+    left: 'calc(100% - 34px)',
+
+    background: `url(${CopyToClipboardIcon})`,
+    backgroundSize: '24px 24px',
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+
+    filter: `\tdrop-shadow(-1px -1px 0 rgba(0, 0, 0, 0.5))
+            \t\tdrop-shadow(-1px 1px 0 rgba(0, 0, 0, 0.5))
+            \t\tdrop-shadow(1px -1px 0 rgba(0, 0, 0, 0.5))
+            \t\tdrop-shadow(1px 1px 0 rgba(0, 0, 0, 0.5));`,
+  },
+  disabled: {
+    color: 'gray',
+  },
+})(ButtonBase);
+
 interface Props {
   deckName: string;
   deckCode: string;
 }
 
+interface State {
+  copied: boolean;
+}
 
-export default class extends React.Component<Props & {db: HearthDB}> {
+
+export default class extends React.Component<Props & {db: HearthDB}, State> {
+
+  constructor(props: Props & {db: HearthDB}) {
+    super(props);
+
+    this.state = { copied: false };
+  }
 
   renderDeckList(deckList: ICardTile[]) {
     const childrean: ReactElement[] = [];
@@ -210,6 +245,13 @@ export default class extends React.Component<Props & {db: HearthDB}> {
       .sort((a, b) => a.cost - b.cost);
   };
 
+  public copyDeck = () => {
+    clipboard.writeText(this.props.deckCode).then(() => {
+      this.setState({ copied: true});
+      setTimeout(() => this.setState({copied: false}), 3000);
+    });
+  };
+
   public render() {
     const deck: DeckDefinition = decode(this.props.deckCode);
 
@@ -219,7 +261,8 @@ export default class extends React.Component<Props & {db: HearthDB}> {
     return (
       <Wrapper hero={heroClass}>
         <Header hero={heroClass}>
-          {this.props.deckName}
+          {this.state.copied ? 'Copied!' : this.props.deckName}
+          <CopyButton title={'Copy deck to clipboard'} onClick={this.copyDeck} />
         </Header>
         <ScrollArea
           style={{
