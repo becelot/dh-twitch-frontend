@@ -1,6 +1,7 @@
 import * as Types from 'Types';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { overlayThunks } from '../../model/overlay/actions';
 import { sidebarActions } from '../../model/sidebar/actions';
 import SidebarComponent from './SidebarComponent';
 
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       toggleSidebar: sidebarActions.toggleSidebar,
       setVisibility: sidebarActions.setVisible,
+      fetchRecent: overlayThunks.fetchRecentDecks,
     },
     dispatch);
 
