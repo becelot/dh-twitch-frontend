@@ -151,19 +151,11 @@ export default class extends React.Component<Props> {
     this.props.setVisibility(true);
   };
 
-  public onToggleSidebar = () => {
-    if (!this.props.expanded) {
-      this.props.fetchRecent();
-    }
-
-    this.props.toggleSidebar();
-  };
-
   public render() {
     return (
       <Wrapper onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseOut}>
         <HiddenContent>{this.props.children}</HiddenContent>
-        <SidebarToggle onClick={this.onToggleSidebar}>
+        <SidebarToggle onClick={this.props.toggleSidebar}>
           <ToggleBadge>DH</ToggleBadge>
           <ToggleSelector />
         </SidebarToggle>
