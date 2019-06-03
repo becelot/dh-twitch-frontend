@@ -162,7 +162,7 @@ const ArrowButton = withStyles({
 export default class extends React.Component<Props> {
 
   public componentDidMount(): void {
-    this.props.fetchRecent();
+    // this.props.fetchRecent();
   }
 
   public renderRecentDecks = () => {
@@ -192,7 +192,13 @@ export default class extends React.Component<Props> {
 
     switch (this.props.working) {
       case OverlayState.UNKNOWN:
-        content = null;
+        content = (
+          <StateLoadingWrapper>
+            <div>
+              <p>Initialization failed</p>
+            </div>
+          </StateLoadingWrapper>
+        );
         break;
       case OverlayState.IDLE:
         content = (
