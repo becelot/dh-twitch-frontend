@@ -29,6 +29,7 @@ const mapStateToProps = (state: Types.RootState) => ({
   error: state.overlay.error,
   recentDecks: state.overlay.recentDecks,
   index: state.overlay.currentDeckIndex,
+  expanded: state.sidebar.expanded,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

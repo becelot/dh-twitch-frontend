@@ -162,7 +162,7 @@ const ArrowButton = withStyles({
 export default class extends React.Component<Props> {
 
   public componentDidMount(): void {
-    // this.props.fetchRecent();
+    this.props.fetchRecent();
   }
 
   public renderRecentDecks = () => {
@@ -185,6 +185,12 @@ export default class extends React.Component<Props> {
 
     return renderedDecks;
   };
+
+  public componentDidUpdate(prevProps: Props) {
+    if (!prevProps.expanded && this.props.expanded) {
+      setTimeout(() => this.props.fetchRecent(), 500);
+    }
+  }
 
   public render() {
 
