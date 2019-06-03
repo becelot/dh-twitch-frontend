@@ -162,7 +162,7 @@ const ArrowButton = withStyles({
 export default class extends React.Component<Props> {
 
   public componentDidMount(): void {
-    this.props.fetchRecent();
+    // this.props.fetchRecent();
   }
 
   public renderRecentDecks = () => {
@@ -201,7 +201,7 @@ export default class extends React.Component<Props> {
         content = (
           <StateLoadingWrapper>
             <div>
-              <p>Initialization failed</p>
+              <p>Not initialized</p>
             </div>
           </StateLoadingWrapper>
         );
