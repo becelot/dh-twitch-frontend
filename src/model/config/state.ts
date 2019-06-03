@@ -33,7 +33,7 @@ export const configInitialState: ConfigState = {
       tileHeight: 32,
     },
     overlay: {
-      width: 300,
+      width: 310,
     },
   },
 };
