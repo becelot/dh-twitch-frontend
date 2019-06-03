@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import * as Types from 'Types';
 import { createAction, createAsyncAction } from 'typesafe-actions';
+import { API_ENDPOINT } from '../../constants';
 import { IRootDeck } from './state';
 
 
@@ -15,7 +16,7 @@ const fetchRecentDecks = () => async (dispatch: Dispatch, getState: () => Types.
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/${state.config.twitch.authorized.channelId}/recent`,
+      `${API_ENDPOINT}/user/${state.config.twitch.authorized.channelId}/recent`,
       {
         headers: {
           Accept: 'application/json',

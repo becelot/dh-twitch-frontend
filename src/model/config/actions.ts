@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import * as Types from 'Types';
 import { createCustomAction } from 'typesafe-actions';
+import { API_ENDPOINT } from '../../constants';
 import { SET_CONNECTION_STATE } from './constants';
 import { ConnectionStatus } from './enums';
 import twitchActions from './twitch/actions';
@@ -19,7 +20,7 @@ const refreshConnectionStatus = () => async (dispatch: Dispatch, getState: () =>
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/${state.config.twitch.authorized.channelId}/configured`,
+      `${API_ENDPOINT}/user/${state.config.twitch.authorized.channelId}/configured`,
       {
         headers: {
           Accept: 'application/json',
