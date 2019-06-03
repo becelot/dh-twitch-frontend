@@ -38,6 +38,7 @@
     "@types/webpack-env": "^1.13.5",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "clipboard-polyfill": "^2.8.1",
     "css-loader": "^2.1.1",
     "css-modules-typescript-loader": "^2.0.2",
     "deckstrings": "^2.1.0",
