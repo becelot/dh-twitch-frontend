@@ -8,7 +8,20 @@ const createStyledComponentsTransformer = require('typescript-plugin-styled-comp
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
 module.exports = (env, argv) => {
+	const isProduction = argv && argv.mode === "production";
 	const plugins = [];
+
+	if (isProduction) {
+		const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+		const ZipPlugin = require("zip-webpack-plugin");
+
+		plugins.push(...[
+			new CleanWebpackPlugin(),
+			new ZipPlugin({
+				filename: "app.zip",
+			})
+		]);
+	}
 
 	const bundlePath = "js/";
 	
@@ -78,9 +91,6 @@ module.exports = (env, argv) => {
 				},
 			],
 		},
-		optimization: {
-			minimize: false
-		},
 		devServer: {
 			contentBase: "./dist",
 			https: true,
@@ -115,7 +125,8 @@ module.exports = (env, argv) => {
 				template: path.resolve(__dirname, "template.html"),
 			}),
 			new HtmlWebpackIncludeSiblingChunksPlugin(),
-		].concat(plugins),
+			...plugins
+		],
 	};
 	
 	if (argv.mode === 'development') {
