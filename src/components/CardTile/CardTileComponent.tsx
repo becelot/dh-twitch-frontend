@@ -92,6 +92,21 @@ const CountBadge = styled.div<ICardTileInfo>`
   }
 `;
 
+const CardImage = styled.div<{height: number; x: number; y: number}>`
+  position: absolute;
+  height: ${props => props.height}px;
+  top: ${props => props.y}px;
+  left: ${props => props.x}px;
+  
+  overflow: hidden;
+  
+  img {
+    height: ${props => props.height + (30 + 79) * (props.height / 744)}px;
+    width: auto;
+    margin-top: ${props => -30 * (props.height / 744)}px;
+  }
+`;
+
 export interface ICardTile {
   count: number;
   id: string;
@@ -157,25 +172,12 @@ export default class extends React.Component<Props & ICardTile, State> {
 
       tooltip = (
         <Portal>
-          <div
-            style={{
-              position: 'absolute',
-              height,
-              top: posTop,
-              left: rect.width + 30,
-              overflow: 'hidden',
-            }}
-          >
+          <CardImage x={rect.width + 30} y={posTop} height={height}>
             <img
               src={`https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${this.props.id}.png`}
               alt={this.props.name}
-              style={{
-                height: height + (30 + 79) * (height / 744),
-                width: 'auto',
-                marginTop: -30 * (height / 744),
-              }}
             />
-          </div>
+          </CardImage>
         </Portal>
       );
     }
