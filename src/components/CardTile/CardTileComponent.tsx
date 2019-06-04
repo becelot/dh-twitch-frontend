@@ -1,3 +1,4 @@
+import { Portal } from '@material-ui/core';
 import * as React from 'react';
 
 import { Props } from './index';
@@ -147,33 +148,35 @@ export default class extends React.Component<Props & ICardTile, State> {
 
       let posTop = 0;
       if (y - height / 2 < topMargin) {
-        posTop = topMargin - y;
+        posTop = topMargin;
       } else if (y + height / 2 > viewPortHeight - bottomMargin) {
-        posTop = viewPortHeight - bottomMargin - height - y;
+        posTop = viewPortHeight - bottomMargin - height;
       } else {
-        posTop = - height / 2;
+        posTop = y - height / 2;
       }
 
       tooltip = (
-        <div
-          style={{
-            position: 'absolute',
-            height,
-            top: posTop,
-            left: rect.width + 30,
-            overflow: 'hidden',
-          }}
-        >
-          <img
-            src={`https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${this.props.id}.png`}
-            alt={this.props.name}
+        <Portal>
+          <div
             style={{
-              height: height + (30 + 79) * (height / 744),
-              width: 'auto',
-              marginTop: -30 * (height / 744),
+              position: 'absolute',
+              height,
+              top: posTop,
+              left: rect.width + 30,
+              overflow: 'hidden',
             }}
-          />
-        </div>
+          >
+            <img
+              src={`https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${this.props.id}.png`}
+              alt={this.props.name}
+              style={{
+                height: height + (30 + 79) * (height / 744),
+                width: 'auto',
+                marginTop: -30 * (height / 744),
+              }}
+            />
+          </div>
+        </Portal>
       );
     }
 
