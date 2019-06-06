@@ -187,7 +187,7 @@ const Footer = styled.div`
   color: white;
   text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  line-height: 38px;
+  line-height: 34px;
   
   border-left: 3px solid #84672D;
   border-top: 3px solid #EAC884;
@@ -202,7 +202,34 @@ const Footer = styled.div`
   align-self: center;
   
   margin-bottom: 6px;
+  font-size: 0.8em;
+  padding-left: 5px;
 `;
+
+const WinLossRatioText = styled.div`
+  flex: 1 0 0;
+  text-align: left;
+`;
+
+const PreviousVersions = styled.a`
+  flex: 0 0 auto;
+  font-size: 0.9em;
+  padding: 0 5px;
+`;
+
+const PreviousVersionsButton = withStyles({
+  root: {
+    flex: '0 0 auto',
+    fontSize: '0.9em',
+    textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+    fontWeight: 'bold',
+    padding: '0 5px',
+  },
+  disabled: {
+    color: 'gray',
+  },
+})(ButtonBase);
+
 
 const CopyButton = withStyles({
   root: {
@@ -324,7 +351,12 @@ export default class extends React.Component<Props & {db: HearthDB}, State> {
           </DeckListWrapper>
         </ScrollArea>
         <Footer >
-          {label}
+          <WinLossRatioText>
+            {label}
+          </WinLossRatioText>
+          <PreviousVersionsButton disabled={!this.props.deck.hasVersions}>
+            {this.props.deck.hasVersions ? ('Previous Versions') : ('No versions')}
+          </PreviousVersionsButton>
         </Footer>
       </Wrapper>
     );

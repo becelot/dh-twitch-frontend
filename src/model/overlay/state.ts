@@ -1,10 +1,12 @@
 
 
 export interface IDeck {
+  id: number;
   name: string;
   code: string;
   wins?: number;
   loss?: number;
+  hasVersions?: boolean;
 }
 
 export interface IRootDeck extends IDeck {
