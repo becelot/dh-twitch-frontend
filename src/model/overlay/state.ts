@@ -3,6 +3,8 @@
 export interface IDeck {
   name: string;
   code: string;
+  wins?: number;
+  loss?: number;
 }
 
 export interface IRootDeck extends IDeck {

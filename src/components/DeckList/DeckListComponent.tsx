@@ -4,6 +4,7 @@ import { CardData } from 'hearthstonejson-client';
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { HearthDB } from '../../model/hearthstone/state';
+import { IRootDeck } from '../../model/overlay/state';
 import CardTile from '../CardTile/';
 import { ICardTile } from '../CardTile/CardTileComponent';
 import * as clipboard from 'clipboard-polyfill';
@@ -177,6 +178,32 @@ const Header = styled.div<{hero: string}>`
   }
 `;
 
+const Footer = styled.div`
+  position: relative;
+  flex: 0 0 34px;
+  width: 295px;
+  background: linear-gradient(#585958, #585958 10%, #272323 70%, #0C0B0C 95%, #0C0B0C);
+  
+  color: white;
+  text-align: center;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  line-height: 38px;
+  
+  border-left: 3px solid #84672D;
+  border-top: 3px solid #EAC884;
+  border-right: 3px solid #84672D;
+  border-bottom: 3px solid #4E391F;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  font-weight: bold;
+  align-self: center;
+  
+  margin-bottom: 6px;
+`;
+
 const CopyButton = withStyles({
   root: {
     width: '34px',
@@ -201,8 +228,7 @@ const CopyButton = withStyles({
 })(ButtonBase);
 
 interface Props {
-  deckName: string;
-  deckCode: string;
+  deck: IRootDeck;
 }
 
 interface State {
@@ -246,22 +272,32 @@ export default class extends React.Component<Props & {db: HearthDB}, State> {
   };
 
   public copyDeck = () => {
-    clipboard.writeText(this.props.deckCode).then(() => {
+    clipboard.writeText(this.props.deck.code).then(() => {
       this.setState({ copied: true});
       setTimeout(() => this.setState({copied: false}), 3000);
     });
   };
 
   public render() {
-    const deck: DeckDefinition = decode(this.props.deckCode);
+    const deck: DeckDefinition = decode(this.props.deck.code);
 
     const hero: CardData = this.props.db[deck.heroes[0]];
     const heroClass: string = (hero.cardClass && hero.cardClass.toUpperCase()) || 'DEFAULT';
 
+    let label = '';
+    if (this.props.deck.wins !== undefined && this.props.deck.loss !== undefined) {
+      let winrate = '';
+      if (this.props.deck.wins + this.props.deck.loss > 0) {
+        winrate = ' (' + (this.props.deck.loss > 0 ? `${(this.props.deck.wins / (this.props.deck.wins + this.props.deck.loss) * 100).toFixed(1)}%)` : '100%)');
+      }
+
+      label = `W/L: ${this.props.deck.wins} - ${this.props.deck.loss}${winrate}`;
+    }
+
     return (
       <Wrapper hero={heroClass}>
         <Header hero={heroClass}>
-          {this.state.copied ? 'Copied!' : this.props.deckName}
+          {this.state.copied ? 'Copied!' : this.props.deck.name}
           <CopyButton title={'Copy deck to clipboard'} onClick={this.copyDeck} />
         </Header>
         <ScrollArea
@@ -287,6 +323,9 @@ export default class extends React.Component<Props & {db: HearthDB}, State> {
             </ul>
           </DeckListWrapper>
         </ScrollArea>
+        <Footer >
+          {label}
+        </Footer>
       </Wrapper>
     );
   }
