@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   user-select: none;
 `;
 
-const Header = styled.div`
+const Box = styled.div`
   position: relative;
   flex: 0 0 auto;
   height: 50px;
@@ -38,12 +38,15 @@ const Header = styled.div`
   display: flex;
   flex-direction: row;
   
+  font-weight: bold;
+`;
+
+const Header = styled(Box)`
   margin-block-start: 0.83em;
   margin-block-end: 0.83em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  font-weight: bold;
-  
+
   div {
     display: flex;
     flex-direction: column;
@@ -176,8 +179,7 @@ export default class extends React.Component<Props> {
           key={this.props.recentDecks[i].code}
         >
           <DeckList
-            deckName={this.props.recentDecks[i].name}
-            deckCode={this.props.recentDecks[i].code}
+            deck={this.props.recentDecks[i]}
           />
         </DeckListShown>
         );
