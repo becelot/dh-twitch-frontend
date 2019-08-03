@@ -29,7 +29,8 @@ module.exports = (env, argv) => {
 		entry: {
 			overlay: [path.resolve(__dirname, "src", "overlay")],
 			config: [path.resolve(__dirname, "src", "config")],
-			panel: [path.resolve(__dirname, "src", "panel")]
+			panel: [path.resolve(__dirname, "src", "panel")],
+			demo: [path.resolve(__dirname, "src", "demo")]
 		},
 		resolve: {
 			extensions: [".ts", ".tsx", ".js", ".scss"],
@@ -122,6 +123,11 @@ module.exports = (env, argv) => {
 			new HtmlWebpackPlugin({
 				filename: "panel.html",
 				chunks: ["panel"],
+				template: path.resolve(__dirname, "template.html"),
+			}),
+			new HtmlWebpackPlugin({
+				filename: "demo.html",
+				chunks: ["demo"],
 				template: path.resolve(__dirname, "template.html"),
 			}),
 			new HtmlWebpackIncludeSiblingChunksPlugin(),
