@@ -9,6 +9,6 @@ export default class extends React.Component<Props> {
   }
 
   public render() {
-    return this.props.loaded && this.props.children ? this.props.children : <div>Hell World</div>;
+    return this.props.loaded && this.props.children ? this.props.children : <></>;
   }
 }
