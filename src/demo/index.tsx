@@ -35,12 +35,30 @@ const Warning = styled.div`
   text-align: center;
   background: orange;
   border-bottom: 2px solid black;
+  border-right: 2px solid black;
   
   font-size: 2rem;
   font-weight: 500;
   padding-bottom: 20px;
   
-  flex: 0 0 0;
+  flex: 1 0 0;
+`;
+
+const BackBanner = styled.a`
+  font-size: 1.8rem;
+  font-weight: 500;
+`;
+
+const BackBannerWrapper = styled.div`
+  flex: 0 0 250px;
+  display: flex;
+  
+  background: antiquewhite;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  
+  border-bottom: 2px solid black;
 `;
 
 const Tutorial = styled.div`
@@ -63,7 +81,17 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
     <Wrapper>
-      <Warning>Please note: This version is a demo only! As the app is hosted on Heroku, the first load might take some time! Since the app is meant to run in a Twitch.tv stream, this page emulates the necessary details!</Warning>
+      <div style={{flex: '0 0 0', display: 'flex', flexDirection: 'row'}}>
+        <Warning>
+          Please note: This version is a demo only! As the app is hosted on Heroku, the first load might take some time!
+          Since the app is meant to run in a Twitch.tv stream, this page emulates the necessary details!
+        </Warning>
+        <BackBannerWrapper>
+          <BackBanner href={'https://findbecker.de'}>
+            Back to portfolio
+          </BackBanner>
+        </BackBannerWrapper>
+      </div>
       <div style={{background: '#e7e7e7', flex: '1 0 0', position: 'relative'}}>
         <Tutorial>
           <div style={{maxWidth: '40vw', textAlign: 'center', color: '#3b3b3b'}}>
