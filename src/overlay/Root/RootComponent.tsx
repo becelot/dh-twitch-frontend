@@ -27,7 +27,7 @@ export default class extends React.Component<Props> {
   public render() {
     return (
       <>
-        {this.props.ready ? <CardLoader><Overlay /> </CardLoader> : <></>}
+        {this.props.ready ? <CardLoader><Overlay /> </CardLoader> : <div>Starting Heroku server...</div>}
       </>
     );
   }
