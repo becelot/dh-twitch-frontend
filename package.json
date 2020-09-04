@@ -46,7 +46,7 @@
     "hearthstonejson-client": "^0.8.4",
     "html-webpack-include-sibling-chunks-plugin": "^0.1.5",
     "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
